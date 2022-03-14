@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"net"
+
+	"github.com/robfig/cron/v3"
 )
 
 type Mem struct {
@@ -29,8 +31,15 @@ func print_msg_content(msg HealthMessage) {
 	fmt.Printf("Disk free %f \n", msg.Disk.Free)
 }
 
+//flush the msgs to HDFS at midnight to save it in the aassociated log file
+func flush(batch []HealthMessage, msg_counter int) {
+	fmt.Printf("flushed %d", msg_counter)
+}
 func main() {
+	//corn is used to schedule a function to run ...@midnight to flush the batch and add it to it's day
+
 	p := make([]byte, 2048)
+	msg_batch := make([]HealthMessage, 1024)
 	var msg_counter uint16 = 0
 	addr := net.UDPAddr{
 		Port: 3500,
@@ -42,6 +51,9 @@ func main() {
 		fmt.Printf("Some error %v\n", err)
 		return
 	}
+	cron_job := cron.New()
+	cron_job.AddFunc("@every 1m", func() { flush(msg_batch, int(msg_counter)) })
+	cron_job.Start()
 
 	for {
 		//recieve msg in a byte array p
@@ -61,9 +73,15 @@ func main() {
 			continue
 		}
 		fmt.Printf("Read a message from %v  \n", remoteaddr)
-		print_msg_content(recieved_msg)
+		//add the msg to the batch
+		msg_batch[msg_counter] = recieved_msg
+		print_msg_content(msg_batch[msg_counter])
 		//if there is no error increase msg counter to keep track of rercieved msgs
 		msg_counter++
+		fmt.Printf("%d", msg_counter)
+		if msg_counter == 1024 {
+			//a batch is formed
 
+		}
 	}
 }
