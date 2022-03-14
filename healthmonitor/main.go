@@ -52,7 +52,7 @@ func main() {
 		return
 	}
 	cron_job := cron.New()
-	cron_job.AddFunc("@every 1m", func() { flush(msg_batch, int(msg_counter)) })
+	cron_job.AddFunc("@midnight", func() { flush(msg_batch, int(msg_counter)) })
 	cron_job.Start()
 
 	for {
