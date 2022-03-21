@@ -23,7 +23,7 @@ type Mem struct {
 }
 
 type HealthMessage struct {
-	serviceName string
+	ServiceName string
 	TimeStamp   int64
 	CPU         float32
 	RAM         Mem
@@ -69,7 +69,7 @@ func getDiskUsage() Mem {
 
 func getHealthJSON() HealthMessage {
 	return HealthMessage{
-		serviceName: serviceName,
+		ServiceName: serviceName,
 		TimeStamp:   time.Now().UnixNano(),
 		CPU:         getCPUUsage(),
 		RAM:         getRamUsage(),
@@ -102,6 +102,7 @@ func main() {
 
 	for {
 		healthMessage := getHealthJSON()
+		fmt.Println(healthMessage.ServiceName)
 		str, _ := json.Marshal(healthMessage)
 
 		fmt.Println(string(str))
