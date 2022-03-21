@@ -38,7 +38,7 @@ func flush(batch []HealthMessage, msg_counter int) {
 func main() {
 	//corn is used to schedule a function to run ...@midnight to flush the batch and add it to it's day
 
-	p := make([]byte, 2048)
+	p := make([]byte, 6*1024)
 	msg_batch := make([]HealthMessage, 1024)
 	var msg_counter uint16 = 0
 	addr := net.UDPAddr{
@@ -47,6 +47,7 @@ func main() {
 	}
 
 	ser, err := net.ListenUDP("udp", &addr)
+
 	if err != nil {
 		fmt.Printf("Some error %v\n", err)
 		return
@@ -63,11 +64,12 @@ func main() {
 			fmt.Printf("Some error  %v", err)
 			continue
 		}
+		recieved_bytes := make([]byte, num_recieved_bytes)
 		// slice the byte array into the size of recieved bytes and ignore the rest
-		p = p[:num_recieved_bytes]
+		recieved_bytes = p[:num_recieved_bytes]
 		//convert byte array into json object
 		var recieved_msg HealthMessage
-		var error_unmarshal = json.Unmarshal(p, &recieved_msg)
+		var error_unmarshal = json.Unmarshal(recieved_bytes, &recieved_msg)
 		if error_unmarshal != nil {
 			fmt.Printf("error in parsing json  %v", error_unmarshal)
 			continue
