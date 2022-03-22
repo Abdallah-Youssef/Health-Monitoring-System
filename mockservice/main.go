@@ -14,7 +14,7 @@ import (
 )
 
 var serviceName string = "Default Service Name"
-var freq int // milliseconds
+var freq int = 1000 // milliseconds
 
 // This struct can be used for both the "RAM" and "DISK" fields
 type Mem struct {
@@ -102,7 +102,6 @@ func main() {
 
 	for {
 		healthMessage := getHealthJSON()
-		fmt.Println(healthMessage.ServiceName)
 		str, _ := json.Marshal(healthMessage)
 
 		fmt.Println(string(str))
