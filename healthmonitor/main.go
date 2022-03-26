@@ -106,6 +106,7 @@ func recieve_msg(p []byte, num_recieved_bytes int) {
 	msg_batch[msg_counter] = recieved_msg
 	recieveTimes[msg_counter] = time.Now().UnixNano()
 	msg_counter++
+	fmt.Print(msg_counter)
 	if msg_counter == 1024 {
 		//a batch is formed
 		flush()
@@ -129,7 +130,7 @@ func startUDPServer() *net.UDPConn {
 }
 
 func connecToHDFS() {
-	client, err := hdfs.New("node1:8020")
+	client, err := hdfs.New(os.Args[1])
 	if err != nil {
 		fmt.Printf("Failed to connect to hdfs: %v\n", err)
 		os.Exit(0)

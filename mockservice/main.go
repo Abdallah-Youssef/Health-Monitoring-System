@@ -93,7 +93,7 @@ func main() {
 		serviceName = os.Args[2]
 	}
 
-	conn, err := net.Dial("udp", "127.0.0.1:3500")
+	conn, err := net.Dial("udp", os.Args[3])
 	if err != nil {
 		fmt.Printf("Some error %v", err)
 		return
