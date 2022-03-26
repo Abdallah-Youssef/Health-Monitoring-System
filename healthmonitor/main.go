@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math"
 	"net"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 	"time"
 
@@ -30,10 +30,10 @@ type HealthMessage struct {
 
 var msg_batch [1024]HealthMessage
 var msg_counter int = 0
-var wg sync.WaitGroup
-var m sync.Mutex
 var hdfsClient *hdfs.Client
 var logFile *hdfs.FileWriter
+var timeSinceLastFlush = time.Now()
+var recieveTimes [1024]int64
 
 // returns "/dd_mm_yyyy.log" of current day
 func getDateString() string {
@@ -51,9 +51,31 @@ func print_msg_content(msg HealthMessage) {
 	fmt.Printf("Disk free %f \n", msg.Disk.Free)
 }
 
+func getRecieveTimesStats() {
+	var sum int64
+	var sd, mean float64
+	now := time.Now().UnixNano()
+	for _, t := range recieveTimes {
+		sum += now - t
+	}
+
+	mean = float64(sum) / float64(msg_counter)
+
+	for _, t := range recieveTimes {
+		sd += math.Pow(float64(now-t)-mean, 2)
+	}
+
+	sd = math.Sqrt(sd / float64(msg_counter))
+	fmt.Printf("Average wait time %v, std %v\n", mean, sd)
+}
+
 // flush whatever is in the msg_batch
 func flush() {
-	fmt.Printf("flushed %d", msg_counter)
+	getRecieveTimesStats()
+	fmt.Printf("Time taken to recieve 1024 msgs: %v\n", time.Since(timeSinceLastFlush))
+	timeSinceLastFlush = time.Now()
+
+	writeTime := time.Now()
 	for i := 0; i < msg_counter; i++ {
 		b, err := json.Marshal(msg_batch[i])
 		if err != nil {
@@ -63,6 +85,9 @@ func flush() {
 		}
 	}
 	logFile.Flush()
+
+	fmt.Printf("Time taken to flush 1024: %v\n", time.Since(writeTime))
+	msg_counter = 0
 }
 
 func recieve_msg(p []byte, num_recieved_bytes int) {
@@ -76,22 +101,15 @@ func recieve_msg(p []byte, num_recieved_bytes int) {
 		fmt.Printf("error in parsing json  %v", error_unmarshal)
 		return
 	}
-	//fmt.Printf("Read a message from %v  \n", remoteaddr)
-	//add the msg to the batch
-	m.Lock()
-	msg_batch[msg_counter] = recieved_msg
-	print_msg_content(msg_batch[msg_counter])
-	//if there is no error increase msg counter to keep track of rercieved msgs
-	msg_counter++
 
-	fmt.Printf("%d", msg_counter)
-	if msg_counter == 10 {
+	//add the msg to the batch
+	msg_batch[msg_counter] = recieved_msg
+	recieveTimes[msg_counter] = time.Now().UnixNano()
+	msg_counter++
+	if msg_counter == 1024 {
 		//a batch is formed
 		flush()
-		msg_counter = 0
 	}
-	m.Unlock()
-	wg.Done() //notify all the waiting
 }
 
 func startUDPServer() *net.UDPConn {
@@ -111,7 +129,7 @@ func startUDPServer() *net.UDPConn {
 }
 
 func connecToHDFS() {
-	client, err := hdfs.New("node1:9000")
+	client, err := hdfs.New("node1:8020")
 	if err != nil {
 		fmt.Printf("Failed to connect to hdfs: %v\n", err)
 		os.Exit(0)
@@ -125,7 +143,7 @@ func openTodaysLogFile() {
 	fmt.Println(fileName)
 	file, err := hdfsClient.Append(fileName)
 	if err != nil {
-		fmt.Printf("Failed to append to %v :\n %v, trying to Create", fileName, err)
+		fmt.Printf("Failed to append to %v :\n, trying to Create", fileName)
 
 		file, err = hdfsClient.Create(fileName)
 		if err != nil {
@@ -149,9 +167,6 @@ func main() {
 	}()
 
 	//corn is used to schedule a function to run ...@midnight to flush the batch and add it to it's day
-
-	p := make([]byte, 6*1024)
-
 	ser := startUDPServer()
 	connecToHDFS()
 	openTodaysLogFile()
@@ -173,16 +188,13 @@ func main() {
 
 	for {
 		//recieve msg in a byte array p
-		num_recieved_bytes, remoteaddr, err := ser.ReadFromUDP(p)
-
+		p := make([]byte, 6*1024)
+		num_recieved_bytes, _, err := ser.ReadFromUDP(p)
 		if err != nil {
 			fmt.Printf("Some error  %v", err)
 			continue
 		}
 
-		fmt.Printf("Read a message from %v  \n", remoteaddr)
-		wg.Add(1)
-		go recieve_msg(p, num_recieved_bytes)
-		wg.Wait()
+		recieve_msg(p, num_recieved_bytes)
 	}
 }
