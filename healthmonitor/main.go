@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
 	"time"
 
@@ -90,7 +91,7 @@ func flush() {
 	msg_counter = 0
 }
 
-func recieve_msg(p []byte, num_recieved_bytes int) {
+func recieve_msg(p []byte, num_recieved_bytes int, m *sync.Mutex) {
 	recieved_bytes := make([]byte, num_recieved_bytes)
 	// slice the byte array into the size of recieved bytes and ignore the rest
 	recieved_bytes = p[:num_recieved_bytes]
@@ -103,14 +104,16 @@ func recieve_msg(p []byte, num_recieved_bytes int) {
 	}
 
 	//add the msg to the batch
+	m.Lock()
 	msg_batch[msg_counter] = recieved_msg
 	recieveTimes[msg_counter] = time.Now().UnixNano()
 	msg_counter++
-	fmt.Print(msg_counter)
+	fmt.Println(msg_counter)
 	if msg_counter == 1024 {
 		//a batch is formed
 		flush()
 	}
+	m.Unlock()
 }
 
 func startUDPServer() *net.UDPConn {
@@ -186,7 +189,7 @@ func main() {
 		openTodaysLogFile()
 	})
 	cron_job.Start()
-
+	var mu sync.Mutex
 	for {
 		//recieve msg in a byte array p
 		p := make([]byte, 6*1024)
@@ -196,6 +199,6 @@ func main() {
 			continue
 		}
 
-		recieve_msg(p, num_recieved_bytes)
+		go recieve_msg(p, num_recieved_bytes, &mu)
 	}
 }
