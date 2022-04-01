@@ -1,5 +1,6 @@
 package main
 
 func main() {
-	StartHealthMonitor("node1:9000")
+	go StartHealthMonitor("node1:9000")
+	StartHttpServer()
 }
