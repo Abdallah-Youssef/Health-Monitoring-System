@@ -79,6 +79,11 @@ func getHealthJSON() HealthMessage {
 }
 
 func padString(str string) string {
+	if len(str) > 200 {
+		fmt.Printf("WARNING PACKET SIZE (%v) > 200\n INCREASE BUFFER SIZE\n EXITING", len(str))
+		os.Exit(1)
+	}
+
 	ret := str
 	count := 0
 	for len(ret) < 200 {
