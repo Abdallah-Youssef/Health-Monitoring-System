@@ -170,13 +170,10 @@ func flush(logFile *hdfs.FileWriter) {
 // 	for _, t := range recieveTimes {
 // 		sum += now - t
 // 	}
-
 // 	mean = float64(sum) / float64(msg_counter)
-
 // 	for _, t := range recieveTimes {
 // 		sd += math.Pow(float64(now-t)-mean, 2)
 // 	}
-
 // 	sd = math.Sqrt(sd / float64(msg_counter))
 // 	fmt.Printf("Average wait time %v, std %v\n", mean, sd)
 // }

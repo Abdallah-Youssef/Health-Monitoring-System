@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
+	"os/exec"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -26,10 +29,22 @@ func StartHttpServer() {
 		}
 
 		c.HTML(http.StatusOK, "results.tmp", gin.H{
-			"start": start,
-			"end":   end,
+			"result": runMapRedJob(start, end),
 		})
 	})
 
 	router.Run(":5000") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+}
+
+func runMapRedJob(start int, end int) string {
+	cmd := exec.Command("sleep", "5")
+	err := cmd.Start()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Waiting for command to finish...")
+	err = cmd.Wait()
+	fmt.Printf("Command finished with error: %v", err)
+
+	return "success"
 }
