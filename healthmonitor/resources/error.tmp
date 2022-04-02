@@ -10,5 +10,6 @@
 
     Error occured : {{.error}}
 
+    <a href="/">Return to home</a>
 </body>
 </html>
