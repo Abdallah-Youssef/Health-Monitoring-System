@@ -8,12 +8,12 @@
 </head>
 <body>
 
-    <form method="post">
-        <label for="start">Start Date:</label>
-        <input type="date" name="start">
+    <form method="get" action="results">
+        <label for="start">Start:</label>
+        <input type="number" min="0" step="1" name="start">
 
-        <label for="end">End Date:</label>
-        <input type="date" name="end">
+        <label for="end">End:</label>
+        <input type="number" min="0" step="1" name="end">
 
         <button type="submit"> Submit</button>
     </form>
