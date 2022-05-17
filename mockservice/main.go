@@ -15,6 +15,7 @@ import (
 
 var serviceName string = "Default Service Name"
 var freq int = 1000 // milliseconds
+var healthMonitorAddr = "127.0.0.1:3500"
 
 // This struct can be used for both the "RAM" and "DISK" fields
 type Mem struct {
@@ -77,6 +78,23 @@ func getHealthJSON() HealthMessage {
 	}
 }
 
+func padString(str string) string {
+	if len(str) > 200 {
+		fmt.Printf("WARNING PACKET SIZE (%v) > 200\n INCREASE BUFFER SIZE\n EXITING", len(str))
+		os.Exit(1)
+	}
+
+	ret := str
+	count := 0
+	for len(ret) < 200 {
+		ret += " "
+		count++
+	}
+
+	fmt.Printf("Added %v\n", count)
+	return ret
+}
+
 func main() {
 	// Parse frequency
 	if len(os.Args) >= 2 {
@@ -93,7 +111,11 @@ func main() {
 		serviceName = os.Args[2]
 	}
 
-	conn, err := net.Dial("udp", os.Args[3])
+	if len(os.Args) >= 4 {
+		healthMonitorAddr = os.Args[3]
+	}
+
+	conn, err := net.Dial("udp", healthMonitorAddr)
 	if err != nil {
 		fmt.Printf("Some error %v", err)
 		return
@@ -102,10 +124,12 @@ func main() {
 
 	for {
 		healthMessage := getHealthJSON()
-		str, _ := json.Marshal(healthMessage)
+		bytes, _ := json.Marshal(healthMessage)
 
-		fmt.Println(string(str))
-		fmt.Fprintf(conn, string(str))
+		if len(bytes) != 0 {
+			str := padString(string(bytes))
+			fmt.Fprintf(conn, str)
+		}
 	}
 
 }
