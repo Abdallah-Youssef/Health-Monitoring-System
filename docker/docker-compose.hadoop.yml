@@ -10,7 +10,7 @@ services:
       - hadoop-worker-2
       - hadoop-worker-3
     ports:
-      -8088:8088
+      - 8088:8088
     deploy:
       placement:
         constraints: [node.role == manager]
