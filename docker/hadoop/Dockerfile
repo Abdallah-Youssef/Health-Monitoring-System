@@ -15,6 +15,7 @@ RUN wget "http://archive.apache.org/dist/hadoop/common/hadoop-3.0.0/hadoop-3.0.0
 RUN apt-get install openjdk-8-jdk -y
 RUN apt-get install vim nano net-tools -y
 RUN apt-get install openssh-client openssh-server -y
+RUN apt-get install iputils-ping -y
 
 RUN tar -xvzf hadoop-3.0.0.tar.gz  && \
   mv hadoop-3.0.0 /usr/local/hadoop && \
