@@ -69,7 +69,7 @@ func recieve_msg(p []byte, logFile *hdfs.FileWriter) {
 	fmt.Print(msg_counter, "-", recieved_msg.ServiceName)
 	if msg_counter == 1024 {
 		//a batch is formed
-		// flush(logFile)
+		flush(logFile)
 	}
 }
 
