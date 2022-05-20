@@ -13,7 +13,7 @@ import (
 	"github.com/ricochet2200/go-disk-usage/du"
 )
 
-var serviceName string = "Default Service Name"
+var serviceName string
 var freq int = 1000 // milliseconds
 var healthMonitorAddr = "127.0.0.1:3500"
 
@@ -94,7 +94,17 @@ func padString(str string) string {
 	return ret
 }
 
+
+//  Args: freq in ms, health
 func main() {
+	serviceName, err := os.Hostname()
+	if err != nil {
+		fmt.Printf("Failed to get hostname")
+		return
+	}else {
+		fmt.Printf("Host name: %v\n", serviceName)
+	}
+
 	// Parse frequency
 	if len(os.Args) >= 2 {
 		x, err := strconv.Atoi(os.Args[1])
@@ -106,15 +116,17 @@ func main() {
 		freq = x
 	}
 
-	if len(os.Args) >= 3 {
-		serviceName = os.Args[2]
-	}
 
-	if len(os.Args) >= 4 {
-		healthMonitorAddr = os.Args[3]
+	
+	healthMonitorAddr, err := net.ResolveUDPAddr("udp", "healthmonitor")
+	if err != nil {
+		fmt.Printf("Failed to get resolve healthmonitor's ip")
+		return
+	}else {
+		fmt.Printf("Found health montior at %v\n", healthMonitorAddr)
 	}
-
-	conn, err := net.Dial("udp", healthMonitorAddr)
+	
+	conn, err := net.DialUDP("udp", nil, healthMonitorAddr)
 	if err != nil {
 		fmt.Printf("Some error %v", err)
 		return

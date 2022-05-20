@@ -1,11 +1,11 @@
-FROM golang AS build
+FROM golang:alpine3.15 AS build
 
 LABEL maintainer="abdallah.yossf@gmail.com"
 WORKDIR /app
 
 COPY ./main.go ./
 
-# Download the required modules
+
 RUN go mod init mockservice
 RUN go mod tidy
 
