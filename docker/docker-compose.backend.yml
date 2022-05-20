@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  mockservice:
+    image: abdallahyossf/mockservice
+    # cmd: ["/mockservice", "1000"]  optional set frequency from here
+    
+  healthmonitor:
+    image: abdallahyossf/healthmonitor
+    hostname: healthmonitor
+
+
+
