@@ -5,7 +5,7 @@ services:
     image: abdallahyossf/hadoop
     container_name: hadoop_master
     tty: true
-    command: sh -c "service ssh start; ./start-hadoop.sh; bash"
+    # command: sh -c "service ssh start; ./start-hadoop.sh; bash"
     deploy:
       placement:
         constraints: [node.role == manager]
