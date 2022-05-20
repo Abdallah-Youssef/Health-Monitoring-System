@@ -66,10 +66,10 @@ func recieve_msg(p []byte, logFile *hdfs.FileWriter) {
 	msg_batch[msg_counter] = recieved_msg
 	// recieveTimes[msg_counter] = time.Now().UnixNano()
 	msg_counter++
-	// fmt.Print(msg_counter, "-")
+	fmt.Print(msg_counter, "-", recieved_msg.ServiceName)
 	if msg_counter == 1024 {
 		//a batch is formed
-		flush(logFile)
+		// flush(logFile)
 	}
 }
 

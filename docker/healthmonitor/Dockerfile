@@ -4,13 +4,19 @@ LABEL maintainer="abdallah.yossf@gmail.com"
 WORKDIR /app
 
 COPY ./main.go ./
+COPY ./healthmonitor.go ./
+COPY ./httpserver.go ./
+COPY ./structs.go ./
+
+RUN mkdir resources 
+COPY ./resources/* ./resources/
 
 # Download the required modules
 RUN go mod init healthmonitor
 RUN go mod tidy
 
 # Build the executable
-RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./healthmonitor  
+RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o healthmonitor
 
 
 FROM alpine

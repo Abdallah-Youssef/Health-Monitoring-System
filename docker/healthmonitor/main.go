@@ -1,7 +1,7 @@
 package main
 
 func main() {
-	// go StartHealthMonitor("node1:9000")
+	StartHealthMonitor("hadoop-master:9000")
 	// StartHttpServer()
 
 }
