@@ -16,7 +16,7 @@
     </property>
 
     <property>
-        <name>dfs.namenode.datanode.registratin.io-hostname-check</name>
+        <name>dfs.namenode.datanode.registration.ip-hostname-check</name>
         <value>false</value>
     </property>
 
