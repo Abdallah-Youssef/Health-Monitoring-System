@@ -5,7 +5,8 @@ services:
     image: abdallahyossf/hadoop
     hostname: hadoop-master
     tty: true
-    command: sh -c "service ssh start; ./start-hadoop.sh; bash"
+    # this doesn't work well, it's better to wait for all nodes to come up and then start manually
+    # command: sh -c "service ssh start; ./start-hadoop.sh; bash"
     deploy:
       placement:
         constraints: [node.role == manager]
