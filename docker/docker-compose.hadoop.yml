@@ -3,7 +3,7 @@ version: "3.7"
 services:
   hadoop-master:
     image: abdallahyossf/hadoop
-    container_name: hadoop_master
+    hostname: hadoop-master
     tty: true
     # command: sh -c "service ssh start; ./start-hadoop.sh; bash"
     deploy:
@@ -12,17 +12,17 @@ services:
 
   hadoop-worker-1:
     image: abdallahyossf/hadoop
-    container_name: hadoop_worker_1
+    hostname: hadoop-worker-1
     tty: true
 
   hadoop-worker-2:
     image: abdallahyossf/hadoop
-    container_name: hadoop_worker_2
+    hostname: hadoop-worker-2
     tty: true
     
 
   hadoop-worker-3:
     image: abdallahyossf/hadoop
-    container_name: hadoop_worker_3
+    hostname: hadoop-worker-3
     tty: true
     
