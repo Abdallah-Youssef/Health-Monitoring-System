@@ -76,7 +76,7 @@ func recieve_msg(p []byte, logFile *hdfs.FileWriter) {
 func startUDPServer() *net.UDPConn {
 	addr := net.UDPAddr{
 		Port: 3500,
-		IP:   net.ParseIP("127.0.0.1"),
+		IP:   net.ParseIP("0.0.0.0"),
 	}
 
 	ser, err := net.ListenUDP("udp", &addr)

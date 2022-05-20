@@ -114,7 +114,7 @@ func main() {
 		freq = x
 	}
 
-	healthMonitorAddr, err := net.ResolveUDPAddr("udp", "healthmonitor")
+	healthMonitorAddr, err := net.ResolveUDPAddr("udp", "healthmonitor:3500")
 	if err != nil {
 		fmt.Printf("Failed to get resolve healthmonitor's ip")
 		return

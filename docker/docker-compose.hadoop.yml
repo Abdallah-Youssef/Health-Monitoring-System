@@ -10,20 +10,31 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+    networks:
+      - main
 
   hadoop-worker-1:
     image: abdallahyossf/hadoop
     hostname: hadoop-worker-1
     tty: true
+    networks:
+      - main
 
   hadoop-worker-2:
     image: abdallahyossf/hadoop
     hostname: hadoop-worker-2
     tty: true
+    networks:
+      - main
     
 
   hadoop-worker-3:
     image: abdallahyossf/hadoop
     hostname: hadoop-worker-3
     tty: true
+    networks:
+      - main
     
+networks:
+  main:
+    external: true
