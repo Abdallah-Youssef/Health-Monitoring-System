@@ -15,7 +15,6 @@ import (
 
 var serviceName string
 var freq int = 1000 // milliseconds
-var healthMonitorAddr = "127.0.0.1:3500"
 
 // This struct can be used for both the "RAM" and "DISK" fields
 type Mem struct {
@@ -94,14 +93,13 @@ func padString(str string) string {
 	return ret
 }
 
-
 //  Args: freq in ms, health
 func main() {
 	serviceName, err := os.Hostname()
 	if err != nil {
 		fmt.Printf("Failed to get hostname")
 		return
-	}else {
+	} else {
 		fmt.Printf("Host name: %v\n", serviceName)
 	}
 
@@ -116,16 +114,14 @@ func main() {
 		freq = x
 	}
 
-
-	
 	healthMonitorAddr, err := net.ResolveUDPAddr("udp", "healthmonitor")
 	if err != nil {
 		fmt.Printf("Failed to get resolve healthmonitor's ip")
 		return
-	}else {
+	} else {
 		fmt.Printf("Found health montior at %v\n", healthMonitorAddr)
 	}
-	
+
 	conn, err := net.DialUDP("udp", nil, healthMonitorAddr)
 	if err != nil {
 		fmt.Printf("Some error %v", err)
