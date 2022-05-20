@@ -7,7 +7,3 @@ Host 0.0.0.0
 Host hadoop-*
    StrictHostKeyChecking no
    UserKnownHostsFile=/dev/null
-
-Host docker-node-*
-   StrictHostKeyChecking no
-   UserKnownHostsFile=/dev/null

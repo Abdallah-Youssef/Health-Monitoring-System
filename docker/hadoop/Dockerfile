@@ -31,8 +31,8 @@ ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 
 
 # ssh without key
-# RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
-#    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+ RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 RUN mkdir -p ~/hdfs/namenode && \ 
     mkdir -p ~/hdfs/datanode && \
@@ -40,14 +40,9 @@ RUN mkdir -p ~/hdfs/namenode && \
 
 COPY config/* /tmp/
 
-RUN mkdir ~/.ssh && \
-    mv /tmp/ssh_config ~/.ssh/config && \
-    mv /tmp/id_rsa ~/.ssh/id_rsa && \
-    mv /tmp/id_rsa.pub ~/.ssh/id_rsa.pub && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-    
  
-RUN mv /tmp/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
+RUN mv /tmp/ssh_config ~/.ssh/config && \
+    mv /tmp/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
     mv /tmp/hdfs-site.xml $HADOOP_HOME/etc/hadoop/hdfs-site.xml && \ 
     mv /tmp/core-site.xml $HADOOP_HOME/etc/hadoop/core-site.xml && \
     mv /tmp/mapred-site.xml $HADOOP_HOME/etc/hadoop/mapred-site.xml && \
