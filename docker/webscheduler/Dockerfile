@@ -1,14 +1,20 @@
-FROM abdallahyossf/hadoop
+# I use a specific tag so that when hadoop:latest changes, rebuilding this file can still use the cached hadoop:base
+FROM abdallahyossf/hadoop:base
 
-WORKDIR /app
+RUN apt install python3-pip -y
+RUN pip3 install flask
 
-COPY ./HealthMessage.java ./
-COPY ./MapReduceJob.java ./
 
-RUN mkdir ./lib
-COPY ./java-json.jar ./lib/
+## Compiling HealthMessagesJob.jar
+WORKDIR /mapreduce
+COPY ./mapreduce/ ./
 
-RUN javac -classpath $(hadoop classpath):/app/lib/* -d ./ ./MapReduceJob.java ./HealthMessage.java
-RUN jar -cvf HealthMessagesJob.jar -C /app .
+RUN javac -classpath $(hadoop classpath):/mapreduce/lib/* -d ./ ./MapReduceJob.java ./HealthMessage.java
+RUN jar -cvf HealthMessagesJob.jar -C /mapreduce .
+# RUN hadoop jar HealthMessagesJob.jar MapReduceJob /messages.txt /output
 
-# RUN hadoop jar HealthMessagesJob.jar MapReduceJob /input.txt /output
+
+## Flask web server
+WORKDIR /flask
+COPY ./flask/ ./
+CMD ["python3", "app.py"]

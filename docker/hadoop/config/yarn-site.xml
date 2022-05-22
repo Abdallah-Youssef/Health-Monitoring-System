@@ -13,6 +13,10 @@
         <value>hadoop-master</value>
     </property>
     <property>
+        <name>yarn.resourcemanager.webapp.address	</name>
+        <value>0.0.0.0:8088</value>
+    </property>
+    <property>
    <name>yarn.nodemanager.vmem-check-enabled</name>
     <value>false</value>
     <description>Whether virtual memory limits will be enforced for containers</description>

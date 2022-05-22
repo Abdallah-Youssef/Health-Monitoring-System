@@ -39,6 +39,7 @@ RUN mkdir -p ~/hdfs/namenode && \
     mkdir $HADOOP_HOME/logs 
 
 COPY config/* /tmp/
+COPY ./messages.txt /root/
 
 RUN mkdir ~/.ssh && \
     mv /tmp/ssh_config ~/.ssh/config && \
