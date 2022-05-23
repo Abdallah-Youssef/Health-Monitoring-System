@@ -11,7 +11,7 @@ COPY ./mapreduce/ ./
 
 RUN javac -classpath $(hadoop classpath):/mapreduce/lib/* -d ./ ./MapReduceJob.java ./HealthMessage.java
 RUN jar -cvf HealthMessagesJob.jar -C /mapreduce .
-# RUN hadoop jar HealthMessagesJob.jar MapReduceJob /messages.txt /output
+# RUN hadoop jar HealthMessagesJob.jar MapReduceJob /messages.txt /temp /temp/part-r-00000 /output
 
 
 ## Flask web server
