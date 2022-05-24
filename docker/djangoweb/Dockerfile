@@ -1,4 +1,4 @@
-FROM python:3.10.0a7-alpine3.13
+FROM python:3.10.0
 
 
 
@@ -13,6 +13,8 @@ ENV PYTHONUNBUFFERED 1
 COPY ./django_app/ ./
 #  install all dependencies  
 RUN pip3 install -r requirements.txt
+#install numpy
+RUN pip3 install numpy 
 #install duckDB
 RUN pip3 install duckdb==0.3.4 
 # Django app port  
