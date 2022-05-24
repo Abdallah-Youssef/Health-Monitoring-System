@@ -14,20 +14,21 @@ def format_result(services_data,start_date,end_date):
         a formatted HTML string of the services query data
     """
     #todo format the result of the query
-    formated_str = "<button><a href=""/"">make another query</a></button><div id=""duration"">"+"<h1>"+str(start_date)+" to "+str(end_date)+"</h1>"+"</div><br>"
+    styling="<html><style>table, th, td {border:1px solid black;}</style><body>"
+    formated_str = styling+ "<button><a href=""/"">make another query</a></button><div id=""duration"">"+"<h1>"+str(start_date)+" to "+str(end_date)+"</h1>"+"</div><br>"
     for row in services_data:
         count = row.count
         formated_str = formated_str+"<h1>" +str(row.service_name)+"</h1>"+\
-                       "Peak CPU:"+str(row.cpu)+"<br>"+\
-                       "Avg CPU:"+str(row.cpu/count)+"<br>"+\
-                       "Avg Ram total:"+str(row.ram_total/count)+"<br>"+\
-                       "Peak Ram total:"+str(row.ram_total)+"<br>"+\
-                       "Avg Ram free:"+str(row.ram_free/count)+"<br>"+\
-                       "Peek Ram free:"+str(row.ram_free)+"<br>"+\
-                       "Avg Disk total:"+str(row.disk_total/count)+"<br>"+\
-                       "Peek Disk total:"+str(row.disk_total)+"<br>"+\
-                       "Avg Disk free:"+str(row.disk_free/count)+"<br>"+\
-                       "Peak Disk free:"+str(row.disk_free)+"<br>"
+                       "<table><tr><td>Peak CPU:</td><td>"+str(row.cpu)+"</td></tr>"+\
+                       "<tr><td>Avg CPU:</td><td>"+str(row.cpu/count)+"</td></tr>"+\
+                       "<tr><td>Avg Ram total:</td><td>"+str(row.ram_total/count)+"</td></tr>"+\
+                       "<tr><td>Peak Ram total:</td><td>"+str(row.ram_total)+"</td></tr>"+\
+                       "<tr><td>Avg Ram free:</td><td>"+str(row.ram_free/count)+"</td></tr>"+\
+                       "<tr><td>Peek Ram free:</td><td>"+str(row.ram_free)+"</td></tr>"+\
+                       "<tr><td>Avg Disk total:</td><td>"+str(row.disk_total/count)+"</td></tr>"+\
+                       "<tr><td>Peek Disk total:</td><td>"+str(row.disk_total)+"</td></tr>"+\
+                       "<tr><td>Avg Disk free:</td><td>"+str(row.disk_free/count)+"</td></tr>"+\
+                       "<tr><td>Peak Disk free:</td><td>"+str(row.disk_free)+"</td></tr></table></body></html>"
     return formated_str
 
 
