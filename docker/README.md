@@ -4,6 +4,7 @@
     docker build -t abdallahyossf/healthmonitor ./healthmonitor
     docker build -t abdallahyossf/mockservice ./mockservice
     docker build -t abdallahyossf/scheduler ./webscheduler
+    docker build -t abdallahyossf/djangoweb ./djangoweb
 ---
   Run this only once after your first hadoop build and don't run it again:
 
