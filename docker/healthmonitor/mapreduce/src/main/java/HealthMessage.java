@@ -117,6 +117,16 @@ public class HealthMessage implements Writable {
       ThriftHealthMessage thriftHealthMessage = new ThriftHealthMessage();
       thriftHealthMessage.setServiceName(serviceName);
       thriftHealthMessage.setCpu(this.cpu.get());
+      thriftHealthMessage.setPeakCpu(this.peakCpu.get());
+      thriftHealthMessage.setRamTotal(this.ramTotal.get());
+      thriftHealthMessage.setPeakRamTotal(this.peakRamTotal.get());
+      thriftHealthMessage.setRamFree(this.ramFree.get());
+      thriftHealthMessage.setPeakRamFree(this.peakRamFree.get());
+      thriftHealthMessage.setDiskTotal(this.diskTotal.get());
+      thriftHealthMessage.setPeakDiskTotal(this.peakDiskTotal.get());
+      thriftHealthMessage.setDiskFree(this.diskFree.get());
+      thriftHealthMessage.setPeakDiskFree(this.peakDiskFree.get());
+      thriftHealthMessage.setCount(this.count.get());
       return thriftHealthMessage;
     }
 }
