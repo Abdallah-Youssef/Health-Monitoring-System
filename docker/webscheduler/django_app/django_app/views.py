@@ -8,8 +8,8 @@ import django_app.formater as formater
 from DummyDataTest.data import data
 
 def query_result_view(request,start_date,end_date):
-    data_test=[data("service3",412,0.89,290,113,84,1),data("service2",1316,1.37,224,700,476,3)]
-
+    data_test = [data("service3",412,0.89,290,113,84,1),data("service2",1316,1.37,224,700,476,3)]
+    start_date, end_date = formater.format_dates(start_date,end_date)
     # query cassandra then pass the query result as the first argument in format_result
     return HttpResponse(formater.format_result(data_test,start_date,end_date))
 
