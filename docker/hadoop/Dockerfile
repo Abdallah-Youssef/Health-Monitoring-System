@@ -25,7 +25,7 @@ RUN tar -xvzf hadoop-3.0.0.tar.gz  && \
 
 
 # set environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64 
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 
 ENV HADOOP_HOME=/usr/local/hadoop 
 ENV HADOOP_ROOT_LOGGER=DEBUG,console
 ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin 
