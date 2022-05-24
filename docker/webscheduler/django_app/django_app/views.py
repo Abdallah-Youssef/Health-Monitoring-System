@@ -1,16 +1,17 @@
 from django.shortcuts import render,redirect
+
+from . import formater
 from .forms import QueryForm
 from django.http import HttpResponse
 import datetime
-from urllib.parse import urlencode
-from django.urls import reverse
+import django_app.formater as formater
+from DummyDataTest.data import data
 
 def query_result_view(request,start_date,end_date):
-    start_date_splitted = start_date.split()
-    start_date = start_date_splitted[0]+" "+start_date_splitted[1]
-    end_date = start_date_splitted[2]+" "+end_date
+    data_test=[data("service3",412,0.89,290,113,84,1),data("service2",1316,1.37,224,700,476,3)]
 
-    return HttpResponse("<h1> service 1</h1>")
+    # query cassandra then pass the query result as the first argument in format_result
+    return HttpResponse(formater.format_result(data_test,start_date,end_date))
 
 
 def query_form_view(request):
