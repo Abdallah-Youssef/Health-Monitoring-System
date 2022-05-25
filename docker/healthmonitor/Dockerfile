@@ -12,6 +12,8 @@ COPY ./healthserver/ ./
 # Download the required modules
 RUN go mod init healthserver
 RUN go mod tidy
+
+# Build executable
 RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o server
 
 
@@ -26,7 +28,7 @@ RUN mvn install
 COPY ./mapreduce/src/ ./src
 RUN mvn package
 
-FROM abdallahyossf/hadoop:base
+FROM abdallahyossf/hadoop
 COPY --from=go-build /healthserver/server /root
 COPY --from=maven-build /mapreduce/target/json-to-parquet-0.0.1-SNAPSHOT.jar /root/mapreducejob.jar
 

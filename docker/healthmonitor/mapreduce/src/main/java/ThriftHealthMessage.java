@@ -11,17 +11,47 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
 
   private static final org.apache.thrift.protocol.TField SERVICE_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("serviceName", org.apache.thrift.protocol.TType.STRING, (short)1);
   private static final org.apache.thrift.protocol.TField CPU_FIELD_DESC = new org.apache.thrift.protocol.TField("cpu", org.apache.thrift.protocol.TType.DOUBLE, (short)2);
+  private static final org.apache.thrift.protocol.TField PEAK_CPU_FIELD_DESC = new org.apache.thrift.protocol.TField("peakCpu", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
+  private static final org.apache.thrift.protocol.TField RAM_TOTAL_FIELD_DESC = new org.apache.thrift.protocol.TField("ramTotal", org.apache.thrift.protocol.TType.DOUBLE, (short)4);
+  private static final org.apache.thrift.protocol.TField PEAK_RAM_TOTAL_FIELD_DESC = new org.apache.thrift.protocol.TField("peakRamTotal", org.apache.thrift.protocol.TType.DOUBLE, (short)5);
+  private static final org.apache.thrift.protocol.TField RAM_FREE_FIELD_DESC = new org.apache.thrift.protocol.TField("ramFree", org.apache.thrift.protocol.TType.DOUBLE, (short)6);
+  private static final org.apache.thrift.protocol.TField PEAK_RAM_FREE_FIELD_DESC = new org.apache.thrift.protocol.TField("peakRamFree", org.apache.thrift.protocol.TType.DOUBLE, (short)7);
+  private static final org.apache.thrift.protocol.TField DISK_TOTAL_FIELD_DESC = new org.apache.thrift.protocol.TField("diskTotal", org.apache.thrift.protocol.TType.DOUBLE, (short)8);
+  private static final org.apache.thrift.protocol.TField PEAK_DISK_TOTAL_FIELD_DESC = new org.apache.thrift.protocol.TField("peakDiskTotal", org.apache.thrift.protocol.TType.DOUBLE, (short)9);
+  private static final org.apache.thrift.protocol.TField DISK_FREE_FIELD_DESC = new org.apache.thrift.protocol.TField("diskFree", org.apache.thrift.protocol.TType.DOUBLE, (short)10);
+  private static final org.apache.thrift.protocol.TField PEAK_DISK_FREE_FIELD_DESC = new org.apache.thrift.protocol.TField("peakDiskFree", org.apache.thrift.protocol.TType.DOUBLE, (short)11);
+  private static final org.apache.thrift.protocol.TField COUNT_FIELD_DESC = new org.apache.thrift.protocol.TField("count", org.apache.thrift.protocol.TType.I32, (short)12);
 
   private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new ThriftHealthMessageStandardSchemeFactory();
   private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new ThriftHealthMessageTupleSchemeFactory();
 
   public @org.apache.thrift.annotation.Nullable java.lang.String serviceName; // required
   public double cpu; // required
+  public double peakCpu; // required
+  public double ramTotal; // required
+  public double peakRamTotal; // required
+  public double ramFree; // required
+  public double peakRamFree; // required
+  public double diskTotal; // required
+  public double peakDiskTotal; // required
+  public double diskFree; // required
+  public double peakDiskFree; // required
+  public int count; // required
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
     SERVICE_NAME((short)1, "serviceName"),
-    CPU((short)2, "cpu");
+    CPU((short)2, "cpu"),
+    PEAK_CPU((short)3, "peakCpu"),
+    RAM_TOTAL((short)4, "ramTotal"),
+    PEAK_RAM_TOTAL((short)5, "peakRamTotal"),
+    RAM_FREE((short)6, "ramFree"),
+    PEAK_RAM_FREE((short)7, "peakRamFree"),
+    DISK_TOTAL((short)8, "diskTotal"),
+    PEAK_DISK_TOTAL((short)9, "peakDiskTotal"),
+    DISK_FREE((short)10, "diskFree"),
+    PEAK_DISK_FREE((short)11, "peakDiskFree"),
+    COUNT((short)12, "count");
 
     private static final java.util.Map<java.lang.String, _Fields> byName = new java.util.HashMap<java.lang.String, _Fields>();
 
@@ -41,6 +71,26 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
           return SERVICE_NAME;
         case 2: // CPU
           return CPU;
+        case 3: // PEAK_CPU
+          return PEAK_CPU;
+        case 4: // RAM_TOTAL
+          return RAM_TOTAL;
+        case 5: // PEAK_RAM_TOTAL
+          return PEAK_RAM_TOTAL;
+        case 6: // RAM_FREE
+          return RAM_FREE;
+        case 7: // PEAK_RAM_FREE
+          return PEAK_RAM_FREE;
+        case 8: // DISK_TOTAL
+          return DISK_TOTAL;
+        case 9: // PEAK_DISK_TOTAL
+          return PEAK_DISK_TOTAL;
+        case 10: // DISK_FREE
+          return DISK_FREE;
+        case 11: // PEAK_DISK_FREE
+          return PEAK_DISK_FREE;
+        case 12: // COUNT
+          return COUNT;
         default:
           return null;
       }
@@ -83,7 +133,17 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
 
   // isset id assignments
   private static final int __CPU_ISSET_ID = 0;
-  private byte __isset_bitfield = 0;
+  private static final int __PEAKCPU_ISSET_ID = 1;
+  private static final int __RAMTOTAL_ISSET_ID = 2;
+  private static final int __PEAKRAMTOTAL_ISSET_ID = 3;
+  private static final int __RAMFREE_ISSET_ID = 4;
+  private static final int __PEAKRAMFREE_ISSET_ID = 5;
+  private static final int __DISKTOTAL_ISSET_ID = 6;
+  private static final int __PEAKDISKTOTAL_ISSET_ID = 7;
+  private static final int __DISKFREE_ISSET_ID = 8;
+  private static final int __PEAKDISKFREE_ISSET_ID = 9;
+  private static final int __COUNT_ISSET_ID = 10;
+  private short __isset_bitfield = 0;
   public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -91,6 +151,26 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
     tmpMap.put(_Fields.CPU, new org.apache.thrift.meta_data.FieldMetaData("cpu", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.PEAK_CPU, new org.apache.thrift.meta_data.FieldMetaData("peakCpu", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.RAM_TOTAL, new org.apache.thrift.meta_data.FieldMetaData("ramTotal", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.PEAK_RAM_TOTAL, new org.apache.thrift.meta_data.FieldMetaData("peakRamTotal", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.RAM_FREE, new org.apache.thrift.meta_data.FieldMetaData("ramFree", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.PEAK_RAM_FREE, new org.apache.thrift.meta_data.FieldMetaData("peakRamFree", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.DISK_TOTAL, new org.apache.thrift.meta_data.FieldMetaData("diskTotal", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.PEAK_DISK_TOTAL, new org.apache.thrift.meta_data.FieldMetaData("peakDiskTotal", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.DISK_FREE, new org.apache.thrift.meta_data.FieldMetaData("diskFree", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.PEAK_DISK_FREE, new org.apache.thrift.meta_data.FieldMetaData("peakDiskFree", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.DOUBLE)));
+    tmpMap.put(_Fields.COUNT, new org.apache.thrift.meta_data.FieldMetaData("count", org.apache.thrift.TFieldRequirementType.REQUIRED, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     metaDataMap = java.util.Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(ThriftHealthMessage.class, metaDataMap);
   }
@@ -100,12 +180,42 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
 
   public ThriftHealthMessage(
     java.lang.String serviceName,
-    double cpu)
+    double cpu,
+    double peakCpu,
+    double ramTotal,
+    double peakRamTotal,
+    double ramFree,
+    double peakRamFree,
+    double diskTotal,
+    double peakDiskTotal,
+    double diskFree,
+    double peakDiskFree,
+    int count)
   {
     this();
     this.serviceName = serviceName;
     this.cpu = cpu;
     setCpuIsSet(true);
+    this.peakCpu = peakCpu;
+    setPeakCpuIsSet(true);
+    this.ramTotal = ramTotal;
+    setRamTotalIsSet(true);
+    this.peakRamTotal = peakRamTotal;
+    setPeakRamTotalIsSet(true);
+    this.ramFree = ramFree;
+    setRamFreeIsSet(true);
+    this.peakRamFree = peakRamFree;
+    setPeakRamFreeIsSet(true);
+    this.diskTotal = diskTotal;
+    setDiskTotalIsSet(true);
+    this.peakDiskTotal = peakDiskTotal;
+    setPeakDiskTotalIsSet(true);
+    this.diskFree = diskFree;
+    setDiskFreeIsSet(true);
+    this.peakDiskFree = peakDiskFree;
+    setPeakDiskFreeIsSet(true);
+    this.count = count;
+    setCountIsSet(true);
   }
 
   /**
@@ -117,6 +227,16 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       this.serviceName = other.serviceName;
     }
     this.cpu = other.cpu;
+    this.peakCpu = other.peakCpu;
+    this.ramTotal = other.ramTotal;
+    this.peakRamTotal = other.peakRamTotal;
+    this.ramFree = other.ramFree;
+    this.peakRamFree = other.peakRamFree;
+    this.diskTotal = other.diskTotal;
+    this.peakDiskTotal = other.peakDiskTotal;
+    this.diskFree = other.diskFree;
+    this.peakDiskFree = other.peakDiskFree;
+    this.count = other.count;
   }
 
   public ThriftHealthMessage deepCopy() {
@@ -128,6 +248,26 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     this.serviceName = null;
     setCpuIsSet(false);
     this.cpu = 0.0;
+    setPeakCpuIsSet(false);
+    this.peakCpu = 0.0;
+    setRamTotalIsSet(false);
+    this.ramTotal = 0.0;
+    setPeakRamTotalIsSet(false);
+    this.peakRamTotal = 0.0;
+    setRamFreeIsSet(false);
+    this.ramFree = 0.0;
+    setPeakRamFreeIsSet(false);
+    this.peakRamFree = 0.0;
+    setDiskTotalIsSet(false);
+    this.diskTotal = 0.0;
+    setPeakDiskTotalIsSet(false);
+    this.peakDiskTotal = 0.0;
+    setDiskFreeIsSet(false);
+    this.diskFree = 0.0;
+    setPeakDiskFreeIsSet(false);
+    this.peakDiskFree = 0.0;
+    setCountIsSet(false);
+    this.count = 0;
   }
 
   @org.apache.thrift.annotation.Nullable
@@ -178,6 +318,236 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __CPU_ISSET_ID, value);
   }
 
+  public double getPeakCpu() {
+    return this.peakCpu;
+  }
+
+  public ThriftHealthMessage setPeakCpu(double peakCpu) {
+    this.peakCpu = peakCpu;
+    setPeakCpuIsSet(true);
+    return this;
+  }
+
+  public void unsetPeakCpu() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __PEAKCPU_ISSET_ID);
+  }
+
+  /** Returns true if field peakCpu is set (has been assigned a value) and false otherwise */
+  public boolean isSetPeakCpu() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __PEAKCPU_ISSET_ID);
+  }
+
+  public void setPeakCpuIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __PEAKCPU_ISSET_ID, value);
+  }
+
+  public double getRamTotal() {
+    return this.ramTotal;
+  }
+
+  public ThriftHealthMessage setRamTotal(double ramTotal) {
+    this.ramTotal = ramTotal;
+    setRamTotalIsSet(true);
+    return this;
+  }
+
+  public void unsetRamTotal() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __RAMTOTAL_ISSET_ID);
+  }
+
+  /** Returns true if field ramTotal is set (has been assigned a value) and false otherwise */
+  public boolean isSetRamTotal() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __RAMTOTAL_ISSET_ID);
+  }
+
+  public void setRamTotalIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __RAMTOTAL_ISSET_ID, value);
+  }
+
+  public double getPeakRamTotal() {
+    return this.peakRamTotal;
+  }
+
+  public ThriftHealthMessage setPeakRamTotal(double peakRamTotal) {
+    this.peakRamTotal = peakRamTotal;
+    setPeakRamTotalIsSet(true);
+    return this;
+  }
+
+  public void unsetPeakRamTotal() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __PEAKRAMTOTAL_ISSET_ID);
+  }
+
+  /** Returns true if field peakRamTotal is set (has been assigned a value) and false otherwise */
+  public boolean isSetPeakRamTotal() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __PEAKRAMTOTAL_ISSET_ID);
+  }
+
+  public void setPeakRamTotalIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __PEAKRAMTOTAL_ISSET_ID, value);
+  }
+
+  public double getRamFree() {
+    return this.ramFree;
+  }
+
+  public ThriftHealthMessage setRamFree(double ramFree) {
+    this.ramFree = ramFree;
+    setRamFreeIsSet(true);
+    return this;
+  }
+
+  public void unsetRamFree() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __RAMFREE_ISSET_ID);
+  }
+
+  /** Returns true if field ramFree is set (has been assigned a value) and false otherwise */
+  public boolean isSetRamFree() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __RAMFREE_ISSET_ID);
+  }
+
+  public void setRamFreeIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __RAMFREE_ISSET_ID, value);
+  }
+
+  public double getPeakRamFree() {
+    return this.peakRamFree;
+  }
+
+  public ThriftHealthMessage setPeakRamFree(double peakRamFree) {
+    this.peakRamFree = peakRamFree;
+    setPeakRamFreeIsSet(true);
+    return this;
+  }
+
+  public void unsetPeakRamFree() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __PEAKRAMFREE_ISSET_ID);
+  }
+
+  /** Returns true if field peakRamFree is set (has been assigned a value) and false otherwise */
+  public boolean isSetPeakRamFree() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __PEAKRAMFREE_ISSET_ID);
+  }
+
+  public void setPeakRamFreeIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __PEAKRAMFREE_ISSET_ID, value);
+  }
+
+  public double getDiskTotal() {
+    return this.diskTotal;
+  }
+
+  public ThriftHealthMessage setDiskTotal(double diskTotal) {
+    this.diskTotal = diskTotal;
+    setDiskTotalIsSet(true);
+    return this;
+  }
+
+  public void unsetDiskTotal() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __DISKTOTAL_ISSET_ID);
+  }
+
+  /** Returns true if field diskTotal is set (has been assigned a value) and false otherwise */
+  public boolean isSetDiskTotal() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __DISKTOTAL_ISSET_ID);
+  }
+
+  public void setDiskTotalIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __DISKTOTAL_ISSET_ID, value);
+  }
+
+  public double getPeakDiskTotal() {
+    return this.peakDiskTotal;
+  }
+
+  public ThriftHealthMessage setPeakDiskTotal(double peakDiskTotal) {
+    this.peakDiskTotal = peakDiskTotal;
+    setPeakDiskTotalIsSet(true);
+    return this;
+  }
+
+  public void unsetPeakDiskTotal() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __PEAKDISKTOTAL_ISSET_ID);
+  }
+
+  /** Returns true if field peakDiskTotal is set (has been assigned a value) and false otherwise */
+  public boolean isSetPeakDiskTotal() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __PEAKDISKTOTAL_ISSET_ID);
+  }
+
+  public void setPeakDiskTotalIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __PEAKDISKTOTAL_ISSET_ID, value);
+  }
+
+  public double getDiskFree() {
+    return this.diskFree;
+  }
+
+  public ThriftHealthMessage setDiskFree(double diskFree) {
+    this.diskFree = diskFree;
+    setDiskFreeIsSet(true);
+    return this;
+  }
+
+  public void unsetDiskFree() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __DISKFREE_ISSET_ID);
+  }
+
+  /** Returns true if field diskFree is set (has been assigned a value) and false otherwise */
+  public boolean isSetDiskFree() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __DISKFREE_ISSET_ID);
+  }
+
+  public void setDiskFreeIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __DISKFREE_ISSET_ID, value);
+  }
+
+  public double getPeakDiskFree() {
+    return this.peakDiskFree;
+  }
+
+  public ThriftHealthMessage setPeakDiskFree(double peakDiskFree) {
+    this.peakDiskFree = peakDiskFree;
+    setPeakDiskFreeIsSet(true);
+    return this;
+  }
+
+  public void unsetPeakDiskFree() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __PEAKDISKFREE_ISSET_ID);
+  }
+
+  /** Returns true if field peakDiskFree is set (has been assigned a value) and false otherwise */
+  public boolean isSetPeakDiskFree() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __PEAKDISKFREE_ISSET_ID);
+  }
+
+  public void setPeakDiskFreeIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __PEAKDISKFREE_ISSET_ID, value);
+  }
+
+  public int getCount() {
+    return this.count;
+  }
+
+  public ThriftHealthMessage setCount(int count) {
+    this.count = count;
+    setCountIsSet(true);
+    return this;
+  }
+
+  public void unsetCount() {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __COUNT_ISSET_ID);
+  }
+
+  /** Returns true if field count is set (has been assigned a value) and false otherwise */
+  public boolean isSetCount() {
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __COUNT_ISSET_ID);
+  }
+
+  public void setCountIsSet(boolean value) {
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __COUNT_ISSET_ID, value);
+  }
+
   public void setFieldValue(_Fields field, @org.apache.thrift.annotation.Nullable java.lang.Object value) {
     switch (field) {
     case SERVICE_NAME:
@@ -196,6 +566,86 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       }
       break;
 
+    case PEAK_CPU:
+      if (value == null) {
+        unsetPeakCpu();
+      } else {
+        setPeakCpu((java.lang.Double)value);
+      }
+      break;
+
+    case RAM_TOTAL:
+      if (value == null) {
+        unsetRamTotal();
+      } else {
+        setRamTotal((java.lang.Double)value);
+      }
+      break;
+
+    case PEAK_RAM_TOTAL:
+      if (value == null) {
+        unsetPeakRamTotal();
+      } else {
+        setPeakRamTotal((java.lang.Double)value);
+      }
+      break;
+
+    case RAM_FREE:
+      if (value == null) {
+        unsetRamFree();
+      } else {
+        setRamFree((java.lang.Double)value);
+      }
+      break;
+
+    case PEAK_RAM_FREE:
+      if (value == null) {
+        unsetPeakRamFree();
+      } else {
+        setPeakRamFree((java.lang.Double)value);
+      }
+      break;
+
+    case DISK_TOTAL:
+      if (value == null) {
+        unsetDiskTotal();
+      } else {
+        setDiskTotal((java.lang.Double)value);
+      }
+      break;
+
+    case PEAK_DISK_TOTAL:
+      if (value == null) {
+        unsetPeakDiskTotal();
+      } else {
+        setPeakDiskTotal((java.lang.Double)value);
+      }
+      break;
+
+    case DISK_FREE:
+      if (value == null) {
+        unsetDiskFree();
+      } else {
+        setDiskFree((java.lang.Double)value);
+      }
+      break;
+
+    case PEAK_DISK_FREE:
+      if (value == null) {
+        unsetPeakDiskFree();
+      } else {
+        setPeakDiskFree((java.lang.Double)value);
+      }
+      break;
+
+    case COUNT:
+      if (value == null) {
+        unsetCount();
+      } else {
+        setCount((java.lang.Integer)value);
+      }
+      break;
+
     }
   }
 
@@ -207,6 +657,36 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
 
     case CPU:
       return getCpu();
+
+    case PEAK_CPU:
+      return getPeakCpu();
+
+    case RAM_TOTAL:
+      return getRamTotal();
+
+    case PEAK_RAM_TOTAL:
+      return getPeakRamTotal();
+
+    case RAM_FREE:
+      return getRamFree();
+
+    case PEAK_RAM_FREE:
+      return getPeakRamFree();
+
+    case DISK_TOTAL:
+      return getDiskTotal();
+
+    case PEAK_DISK_TOTAL:
+      return getPeakDiskTotal();
+
+    case DISK_FREE:
+      return getDiskFree();
+
+    case PEAK_DISK_FREE:
+      return getPeakDiskFree();
+
+    case COUNT:
+      return getCount();
 
     }
     throw new java.lang.IllegalStateException();
@@ -223,6 +703,26 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       return isSetServiceName();
     case CPU:
       return isSetCpu();
+    case PEAK_CPU:
+      return isSetPeakCpu();
+    case RAM_TOTAL:
+      return isSetRamTotal();
+    case PEAK_RAM_TOTAL:
+      return isSetPeakRamTotal();
+    case RAM_FREE:
+      return isSetRamFree();
+    case PEAK_RAM_FREE:
+      return isSetPeakRamFree();
+    case DISK_TOTAL:
+      return isSetDiskTotal();
+    case PEAK_DISK_TOTAL:
+      return isSetPeakDiskTotal();
+    case DISK_FREE:
+      return isSetDiskFree();
+    case PEAK_DISK_FREE:
+      return isSetPeakDiskFree();
+    case COUNT:
+      return isSetCount();
     }
     throw new java.lang.IllegalStateException();
   }
@@ -258,6 +758,96 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
         return false;
     }
 
+    boolean this_present_peakCpu = true;
+    boolean that_present_peakCpu = true;
+    if (this_present_peakCpu || that_present_peakCpu) {
+      if (!(this_present_peakCpu && that_present_peakCpu))
+        return false;
+      if (this.peakCpu != that.peakCpu)
+        return false;
+    }
+
+    boolean this_present_ramTotal = true;
+    boolean that_present_ramTotal = true;
+    if (this_present_ramTotal || that_present_ramTotal) {
+      if (!(this_present_ramTotal && that_present_ramTotal))
+        return false;
+      if (this.ramTotal != that.ramTotal)
+        return false;
+    }
+
+    boolean this_present_peakRamTotal = true;
+    boolean that_present_peakRamTotal = true;
+    if (this_present_peakRamTotal || that_present_peakRamTotal) {
+      if (!(this_present_peakRamTotal && that_present_peakRamTotal))
+        return false;
+      if (this.peakRamTotal != that.peakRamTotal)
+        return false;
+    }
+
+    boolean this_present_ramFree = true;
+    boolean that_present_ramFree = true;
+    if (this_present_ramFree || that_present_ramFree) {
+      if (!(this_present_ramFree && that_present_ramFree))
+        return false;
+      if (this.ramFree != that.ramFree)
+        return false;
+    }
+
+    boolean this_present_peakRamFree = true;
+    boolean that_present_peakRamFree = true;
+    if (this_present_peakRamFree || that_present_peakRamFree) {
+      if (!(this_present_peakRamFree && that_present_peakRamFree))
+        return false;
+      if (this.peakRamFree != that.peakRamFree)
+        return false;
+    }
+
+    boolean this_present_diskTotal = true;
+    boolean that_present_diskTotal = true;
+    if (this_present_diskTotal || that_present_diskTotal) {
+      if (!(this_present_diskTotal && that_present_diskTotal))
+        return false;
+      if (this.diskTotal != that.diskTotal)
+        return false;
+    }
+
+    boolean this_present_peakDiskTotal = true;
+    boolean that_present_peakDiskTotal = true;
+    if (this_present_peakDiskTotal || that_present_peakDiskTotal) {
+      if (!(this_present_peakDiskTotal && that_present_peakDiskTotal))
+        return false;
+      if (this.peakDiskTotal != that.peakDiskTotal)
+        return false;
+    }
+
+    boolean this_present_diskFree = true;
+    boolean that_present_diskFree = true;
+    if (this_present_diskFree || that_present_diskFree) {
+      if (!(this_present_diskFree && that_present_diskFree))
+        return false;
+      if (this.diskFree != that.diskFree)
+        return false;
+    }
+
+    boolean this_present_peakDiskFree = true;
+    boolean that_present_peakDiskFree = true;
+    if (this_present_peakDiskFree || that_present_peakDiskFree) {
+      if (!(this_present_peakDiskFree && that_present_peakDiskFree))
+        return false;
+      if (this.peakDiskFree != that.peakDiskFree)
+        return false;
+    }
+
+    boolean this_present_count = true;
+    boolean that_present_count = true;
+    if (this_present_count || that_present_count) {
+      if (!(this_present_count && that_present_count))
+        return false;
+      if (this.count != that.count)
+        return false;
+    }
+
     return true;
   }
 
@@ -270,6 +860,26 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       hashCode = hashCode * 8191 + serviceName.hashCode();
 
     hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(cpu);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(peakCpu);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(ramTotal);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(peakRamTotal);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(ramFree);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(peakRamFree);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(diskTotal);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(peakDiskTotal);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(diskFree);
+
+    hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(peakDiskFree);
+
+    hashCode = hashCode * 8191 + count;
 
     return hashCode;
   }
@@ -298,6 +908,106 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     }
     if (isSetCpu()) {
       lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.cpu, other.cpu);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetPeakCpu(), other.isSetPeakCpu());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetPeakCpu()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.peakCpu, other.peakCpu);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetRamTotal(), other.isSetRamTotal());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetRamTotal()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.ramTotal, other.ramTotal);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetPeakRamTotal(), other.isSetPeakRamTotal());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetPeakRamTotal()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.peakRamTotal, other.peakRamTotal);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetRamFree(), other.isSetRamFree());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetRamFree()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.ramFree, other.ramFree);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetPeakRamFree(), other.isSetPeakRamFree());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetPeakRamFree()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.peakRamFree, other.peakRamFree);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetDiskTotal(), other.isSetDiskTotal());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetDiskTotal()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.diskTotal, other.diskTotal);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetPeakDiskTotal(), other.isSetPeakDiskTotal());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetPeakDiskTotal()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.peakDiskTotal, other.peakDiskTotal);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetDiskFree(), other.isSetDiskFree());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetDiskFree()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.diskFree, other.diskFree);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetPeakDiskFree(), other.isSetPeakDiskFree());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetPeakDiskFree()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.peakDiskFree, other.peakDiskFree);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = java.lang.Boolean.compare(isSetCount(), other.isSetCount());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetCount()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.count, other.count);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -334,6 +1044,46 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     sb.append("cpu:");
     sb.append(this.cpu);
     first = false;
+    if (!first) sb.append(", ");
+    sb.append("peakCpu:");
+    sb.append(this.peakCpu);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("ramTotal:");
+    sb.append(this.ramTotal);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("peakRamTotal:");
+    sb.append(this.peakRamTotal);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("ramFree:");
+    sb.append(this.ramFree);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("peakRamFree:");
+    sb.append(this.peakRamFree);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("diskTotal:");
+    sb.append(this.diskTotal);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("peakDiskTotal:");
+    sb.append(this.peakDiskTotal);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("diskFree:");
+    sb.append(this.diskFree);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("peakDiskFree:");
+    sb.append(this.peakDiskFree);
+    first = false;
+    if (!first) sb.append(", ");
+    sb.append("count:");
+    sb.append(this.count);
+    first = false;
     sb.append(")");
     return sb.toString();
   }
@@ -344,6 +1094,16 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       throw new org.apache.thrift.protocol.TProtocolException("Required field 'serviceName' was not present! Struct: " + toString());
     }
     // alas, we cannot check 'cpu' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'peakCpu' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'ramTotal' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'peakRamTotal' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'ramFree' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'peakRamFree' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'diskTotal' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'peakDiskTotal' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'diskFree' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'peakDiskFree' because it's a primitive and you chose the non-beans generator.
+    // alas, we cannot check 'count' because it's a primitive and you chose the non-beans generator.
     // check for sub-struct validity
   }
 
@@ -399,6 +1159,86 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 3: // PEAK_CPU
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.peakCpu = iprot.readDouble();
+              struct.setPeakCpuIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 4: // RAM_TOTAL
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.ramTotal = iprot.readDouble();
+              struct.setRamTotalIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 5: // PEAK_RAM_TOTAL
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.peakRamTotal = iprot.readDouble();
+              struct.setPeakRamTotalIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 6: // RAM_FREE
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.ramFree = iprot.readDouble();
+              struct.setRamFreeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 7: // PEAK_RAM_FREE
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.peakRamFree = iprot.readDouble();
+              struct.setPeakRamFreeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 8: // DISK_TOTAL
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.diskTotal = iprot.readDouble();
+              struct.setDiskTotalIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 9: // PEAK_DISK_TOTAL
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.peakDiskTotal = iprot.readDouble();
+              struct.setPeakDiskTotalIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 10: // DISK_FREE
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.diskFree = iprot.readDouble();
+              struct.setDiskFreeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 11: // PEAK_DISK_FREE
+            if (schemeField.type == org.apache.thrift.protocol.TType.DOUBLE) {
+              struct.peakDiskFree = iprot.readDouble();
+              struct.setPeakDiskFreeIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 12: // COUNT
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.count = iprot.readI32();
+              struct.setCountIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -409,6 +1249,36 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       // check for required fields of primitive type, which can't be checked in the validate method
       if (!struct.isSetCpu()) {
         throw new org.apache.thrift.protocol.TProtocolException("Required field 'cpu' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetPeakCpu()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'peakCpu' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetRamTotal()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'ramTotal' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetPeakRamTotal()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'peakRamTotal' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetRamFree()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'ramFree' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetPeakRamFree()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'peakRamFree' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetDiskTotal()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'diskTotal' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetPeakDiskTotal()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'peakDiskTotal' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetDiskFree()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'diskFree' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetPeakDiskFree()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'peakDiskFree' was not found in serialized data! Struct: " + toString());
+      }
+      if (!struct.isSetCount()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'count' was not found in serialized data! Struct: " + toString());
       }
       struct.validate();
     }
@@ -424,6 +1294,36 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       }
       oprot.writeFieldBegin(CPU_FIELD_DESC);
       oprot.writeDouble(struct.cpu);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(PEAK_CPU_FIELD_DESC);
+      oprot.writeDouble(struct.peakCpu);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(RAM_TOTAL_FIELD_DESC);
+      oprot.writeDouble(struct.ramTotal);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(PEAK_RAM_TOTAL_FIELD_DESC);
+      oprot.writeDouble(struct.peakRamTotal);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(RAM_FREE_FIELD_DESC);
+      oprot.writeDouble(struct.ramFree);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(PEAK_RAM_FREE_FIELD_DESC);
+      oprot.writeDouble(struct.peakRamFree);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(DISK_TOTAL_FIELD_DESC);
+      oprot.writeDouble(struct.diskTotal);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(PEAK_DISK_TOTAL_FIELD_DESC);
+      oprot.writeDouble(struct.peakDiskTotal);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(DISK_FREE_FIELD_DESC);
+      oprot.writeDouble(struct.diskFree);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(PEAK_DISK_FREE_FIELD_DESC);
+      oprot.writeDouble(struct.peakDiskFree);
+      oprot.writeFieldEnd();
+      oprot.writeFieldBegin(COUNT_FIELD_DESC);
+      oprot.writeI32(struct.count);
       oprot.writeFieldEnd();
       oprot.writeFieldStop();
       oprot.writeStructEnd();
@@ -444,6 +1344,16 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
       oprot.writeString(struct.serviceName);
       oprot.writeDouble(struct.cpu);
+      oprot.writeDouble(struct.peakCpu);
+      oprot.writeDouble(struct.ramTotal);
+      oprot.writeDouble(struct.peakRamTotal);
+      oprot.writeDouble(struct.ramFree);
+      oprot.writeDouble(struct.peakRamFree);
+      oprot.writeDouble(struct.diskTotal);
+      oprot.writeDouble(struct.peakDiskTotal);
+      oprot.writeDouble(struct.diskFree);
+      oprot.writeDouble(struct.peakDiskFree);
+      oprot.writeI32(struct.count);
     }
 
     @Override
@@ -453,6 +1363,26 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       struct.setServiceNameIsSet(true);
       struct.cpu = iprot.readDouble();
       struct.setCpuIsSet(true);
+      struct.peakCpu = iprot.readDouble();
+      struct.setPeakCpuIsSet(true);
+      struct.ramTotal = iprot.readDouble();
+      struct.setRamTotalIsSet(true);
+      struct.peakRamTotal = iprot.readDouble();
+      struct.setPeakRamTotalIsSet(true);
+      struct.ramFree = iprot.readDouble();
+      struct.setRamFreeIsSet(true);
+      struct.peakRamFree = iprot.readDouble();
+      struct.setPeakRamFreeIsSet(true);
+      struct.diskTotal = iprot.readDouble();
+      struct.setDiskTotalIsSet(true);
+      struct.peakDiskTotal = iprot.readDouble();
+      struct.setPeakDiskTotalIsSet(true);
+      struct.diskFree = iprot.readDouble();
+      struct.setDiskFreeIsSet(true);
+      struct.peakDiskFree = iprot.readDouble();
+      struct.setPeakDiskFreeIsSet(true);
+      struct.count = iprot.readI32();
+      struct.setCountIsSet(true);
     }
   }
 
