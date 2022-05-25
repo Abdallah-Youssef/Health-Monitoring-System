@@ -1,3 +1,6 @@
+import datetime
+
+
 def format_result(services_data,start_date,end_date):
     """ format the query result into HTML string to be rendered
     Paramaters
@@ -34,6 +37,10 @@ def format_result(services_data,start_date,end_date):
 
 def format_dates(start_date,end_date)->list:
     start_date_splitted = start_date.split()
-    start_date = start_date_splitted[0]+" "+start_date_splitted[1]
-    end_date = start_date_splitted[2]+" "+end_date
+    s_days,s_month,s_year=start_date_splitted[0].split("/")
+    s_hours,s_minutes=start_date_splitted[1].split(":")
+    e_days,e_month,e_year = start_date_splitted[2].split("/")
+    e_hours, e_minutes = end_date.split(":")
+    start_date = datetime.datetime(int(s_year),int(s_month),int(s_days),int(s_hours),int(s_minutes))
+    end_date = datetime.datetime(int(e_year),int(e_month),int(e_days),int(e_hours),int(e_minutes))
     return [start_date, end_date]
