@@ -9,7 +9,7 @@
 public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealthMessage, ThriftHealthMessage._Fields>, java.io.Serializable, Cloneable, Comparable<ThriftHealthMessage> {
   private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("ThriftHealthMessage");
 
-  private static final org.apache.thrift.protocol.TField SERVICE_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("serviceName", org.apache.thrift.protocol.TType.STRING, (short)1);
+  private static final org.apache.thrift.protocol.TField SERVICE_NAME_FIELD_DESC = new org.apache.thrift.protocol.TField("serviceName", org.apache.thrift.protocol.TType.I32, (short)1);
   private static final org.apache.thrift.protocol.TField TIMESTAMP_FIELD_DESC = new org.apache.thrift.protocol.TField("timestamp", org.apache.thrift.protocol.TType.I64, (short)2);
   private static final org.apache.thrift.protocol.TField CPU_FIELD_DESC = new org.apache.thrift.protocol.TField("cpu", org.apache.thrift.protocol.TType.DOUBLE, (short)3);
   private static final org.apache.thrift.protocol.TField PEAK_CPU_FIELD_DESC = new org.apache.thrift.protocol.TField("peakCpu", org.apache.thrift.protocol.TType.DOUBLE, (short)4);
@@ -26,7 +26,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
   private static final org.apache.thrift.scheme.SchemeFactory STANDARD_SCHEME_FACTORY = new ThriftHealthMessageStandardSchemeFactory();
   private static final org.apache.thrift.scheme.SchemeFactory TUPLE_SCHEME_FACTORY = new ThriftHealthMessageTupleSchemeFactory();
 
-  public @org.apache.thrift.annotation.Nullable java.lang.String serviceName; // required
+  public int serviceName; // required
   public long timestamp; // required
   public double cpu; // required
   public double peakCpu; // required
@@ -137,24 +137,25 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
   }
 
   // isset id assignments
-  private static final int __TIMESTAMP_ISSET_ID = 0;
-  private static final int __CPU_ISSET_ID = 1;
-  private static final int __PEAKCPU_ISSET_ID = 2;
-  private static final int __RAMTOTAL_ISSET_ID = 3;
-  private static final int __PEAKRAMTOTAL_ISSET_ID = 4;
-  private static final int __RAMFREE_ISSET_ID = 5;
-  private static final int __PEAKRAMFREE_ISSET_ID = 6;
-  private static final int __DISKTOTAL_ISSET_ID = 7;
-  private static final int __PEAKDISKTOTAL_ISSET_ID = 8;
-  private static final int __DISKFREE_ISSET_ID = 9;
-  private static final int __PEAKDISKFREE_ISSET_ID = 10;
-  private static final int __COUNT_ISSET_ID = 11;
+  private static final int __SERVICENAME_ISSET_ID = 0;
+  private static final int __TIMESTAMP_ISSET_ID = 1;
+  private static final int __CPU_ISSET_ID = 2;
+  private static final int __PEAKCPU_ISSET_ID = 3;
+  private static final int __RAMTOTAL_ISSET_ID = 4;
+  private static final int __PEAKRAMTOTAL_ISSET_ID = 5;
+  private static final int __RAMFREE_ISSET_ID = 6;
+  private static final int __PEAKRAMFREE_ISSET_ID = 7;
+  private static final int __DISKTOTAL_ISSET_ID = 8;
+  private static final int __PEAKDISKTOTAL_ISSET_ID = 9;
+  private static final int __DISKFREE_ISSET_ID = 10;
+  private static final int __PEAKDISKFREE_ISSET_ID = 11;
+  private static final int __COUNT_ISSET_ID = 12;
   private short __isset_bitfield = 0;
   public static final java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     java.util.Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new java.util.EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
     tmpMap.put(_Fields.SERVICE_NAME, new org.apache.thrift.meta_data.FieldMetaData("serviceName", org.apache.thrift.TFieldRequirementType.REQUIRED, 
-        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.STRING)));
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
     tmpMap.put(_Fields.TIMESTAMP, new org.apache.thrift.meta_data.FieldMetaData("timestamp", org.apache.thrift.TFieldRequirementType.REQUIRED, 
         new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
     tmpMap.put(_Fields.CPU, new org.apache.thrift.meta_data.FieldMetaData("cpu", org.apache.thrift.TFieldRequirementType.REQUIRED, 
@@ -187,7 +188,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
   }
 
   public ThriftHealthMessage(
-    java.lang.String serviceName,
+    int serviceName,
     long timestamp,
     double cpu,
     double peakCpu,
@@ -203,6 +204,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
   {
     this();
     this.serviceName = serviceName;
+    setServiceNameIsSet(true);
     this.timestamp = timestamp;
     setTimestampIsSet(true);
     this.cpu = cpu;
@@ -234,9 +236,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
    */
   public ThriftHealthMessage(ThriftHealthMessage other) {
     __isset_bitfield = other.__isset_bitfield;
-    if (other.isSetServiceName()) {
-      this.serviceName = other.serviceName;
-    }
+    this.serviceName = other.serviceName;
     this.timestamp = other.timestamp;
     this.cpu = other.cpu;
     this.peakCpu = other.peakCpu;
@@ -257,7 +257,8 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
 
   @Override
   public void clear() {
-    this.serviceName = null;
+    setServiceNameIsSet(false);
+    this.serviceName = 0;
     setTimestampIsSet(false);
     this.timestamp = 0;
     setCpuIsSet(false);
@@ -284,29 +285,27 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     this.count = 0;
   }
 
-  @org.apache.thrift.annotation.Nullable
-  public java.lang.String getServiceName() {
+  public int getServiceName() {
     return this.serviceName;
   }
 
-  public ThriftHealthMessage setServiceName(@org.apache.thrift.annotation.Nullable java.lang.String serviceName) {
+  public ThriftHealthMessage setServiceName(int serviceName) {
     this.serviceName = serviceName;
+    setServiceNameIsSet(true);
     return this;
   }
 
   public void unsetServiceName() {
-    this.serviceName = null;
+    __isset_bitfield = org.apache.thrift.EncodingUtils.clearBit(__isset_bitfield, __SERVICENAME_ISSET_ID);
   }
 
   /** Returns true if field serviceName is set (has been assigned a value) and false otherwise */
   public boolean isSetServiceName() {
-    return this.serviceName != null;
+    return org.apache.thrift.EncodingUtils.testBit(__isset_bitfield, __SERVICENAME_ISSET_ID);
   }
 
   public void setServiceNameIsSet(boolean value) {
-    if (!value) {
-      this.serviceName = null;
-    }
+    __isset_bitfield = org.apache.thrift.EncodingUtils.setBit(__isset_bitfield, __SERVICENAME_ISSET_ID, value);
   }
 
   public long getTimestamp() {
@@ -591,7 +590,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       if (value == null) {
         unsetServiceName();
       } else {
-        setServiceName((java.lang.String)value);
+        setServiceName((java.lang.Integer)value);
       }
       break;
 
@@ -790,12 +789,12 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     if (this == that)
       return true;
 
-    boolean this_present_serviceName = true && this.isSetServiceName();
-    boolean that_present_serviceName = true && that.isSetServiceName();
+    boolean this_present_serviceName = true;
+    boolean that_present_serviceName = true;
     if (this_present_serviceName || that_present_serviceName) {
       if (!(this_present_serviceName && that_present_serviceName))
         return false;
-      if (!this.serviceName.equals(that.serviceName))
+      if (this.serviceName != that.serviceName)
         return false;
     }
 
@@ -914,9 +913,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
   public int hashCode() {
     int hashCode = 1;
 
-    hashCode = hashCode * 8191 + ((isSetServiceName()) ? 131071 : 524287);
-    if (isSetServiceName())
-      hashCode = hashCode * 8191 + serviceName.hashCode();
+    hashCode = hashCode * 8191 + serviceName;
 
     hashCode = hashCode * 8191 + org.apache.thrift.TBaseHelper.hashCode(timestamp);
 
@@ -1105,11 +1102,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     boolean first = true;
 
     sb.append("serviceName:");
-    if (this.serviceName == null) {
-      sb.append("null");
-    } else {
-      sb.append(this.serviceName);
-    }
+    sb.append(this.serviceName);
     first = false;
     if (!first) sb.append(", ");
     sb.append("timestamp:");
@@ -1165,9 +1158,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
 
   public void validate() throws org.apache.thrift.TException {
     // check for required fields
-    if (serviceName == null) {
-      throw new org.apache.thrift.protocol.TProtocolException("Required field 'serviceName' was not present! Struct: " + toString());
-    }
+    // alas, we cannot check 'serviceName' because it's a primitive and you chose the non-beans generator.
     // alas, we cannot check 'timestamp' because it's a primitive and you chose the non-beans generator.
     // alas, we cannot check 'cpu' because it's a primitive and you chose the non-beans generator.
     // alas, we cannot check 'peakCpu' because it's a primitive and you chose the non-beans generator.
@@ -1220,8 +1211,8 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
         }
         switch (schemeField.id) {
           case 1: // SERVICE_NAME
-            if (schemeField.type == org.apache.thrift.protocol.TType.STRING) {
-              struct.serviceName = iprot.readString();
+            if (schemeField.type == org.apache.thrift.protocol.TType.I32) {
+              struct.serviceName = iprot.readI32();
               struct.setServiceNameIsSet(true);
             } else { 
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
@@ -1331,6 +1322,9 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       iprot.readStructEnd();
 
       // check for required fields of primitive type, which can't be checked in the validate method
+      if (!struct.isSetServiceName()) {
+        throw new org.apache.thrift.protocol.TProtocolException("Required field 'serviceName' was not found in serialized data! Struct: " + toString());
+      }
       if (!struct.isSetTimestamp()) {
         throw new org.apache.thrift.protocol.TProtocolException("Required field 'timestamp' was not found in serialized data! Struct: " + toString());
       }
@@ -1374,11 +1368,9 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
       struct.validate();
 
       oprot.writeStructBegin(STRUCT_DESC);
-      if (struct.serviceName != null) {
-        oprot.writeFieldBegin(SERVICE_NAME_FIELD_DESC);
-        oprot.writeString(struct.serviceName);
-        oprot.writeFieldEnd();
-      }
+      oprot.writeFieldBegin(SERVICE_NAME_FIELD_DESC);
+      oprot.writeI32(struct.serviceName);
+      oprot.writeFieldEnd();
       oprot.writeFieldBegin(TIMESTAMP_FIELD_DESC);
       oprot.writeI64(struct.timestamp);
       oprot.writeFieldEnd();
@@ -1432,7 +1424,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     @Override
     public void write(org.apache.thrift.protocol.TProtocol prot, ThriftHealthMessage struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TTupleProtocol oprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
-      oprot.writeString(struct.serviceName);
+      oprot.writeI32(struct.serviceName);
       oprot.writeI64(struct.timestamp);
       oprot.writeDouble(struct.cpu);
       oprot.writeDouble(struct.peakCpu);
@@ -1450,7 +1442,7 @@ public class ThriftHealthMessage implements org.apache.thrift.TBase<ThriftHealth
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, ThriftHealthMessage struct) throws org.apache.thrift.TException {
       org.apache.thrift.protocol.TTupleProtocol iprot = (org.apache.thrift.protocol.TTupleProtocol) prot;
-      struct.serviceName = iprot.readString();
+      struct.serviceName = iprot.readI32();
       struct.setServiceNameIsSet(true);
       struct.timestamp = iprot.readI64();
       struct.setTimestampIsSet(true);
