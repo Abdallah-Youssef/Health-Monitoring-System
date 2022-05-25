@@ -1,5 +1,10 @@
+import java.util.Date;
+import java.time.*;
+import java.time.temporal.ChronoUnit;
+
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Writable;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -20,9 +25,11 @@ public class HealthMessage implements Writable {
     public DoubleWritable diskFree;
     public DoubleWritable peakDiskFree;
     public IntWritable count;
+    public LongWritable timestamp;
 
     public HealthMessage(String message) throws JSONException {
         JSONObject object = new JSONObject(message);
+        timestamp = truncateSeconds(object.getLong("Timestamp"));
         cpu = new DoubleWritable(object.getDouble("CPU"));
         ramTotal = new DoubleWritable(object.getJSONObject("RAM").getDouble("Total"));
         ramFree = new DoubleWritable(object.getJSONObject("RAM").getDouble("Free"));
@@ -36,7 +43,13 @@ public class HealthMessage implements Writable {
         peakDiskFree = new DoubleWritable(0);
     }
 
+    LongWritable truncateSeconds(Long timestamp){
+      Long truncatedTimestamp = timestamp - (timestamp % 60);
+      return new LongWritable(truncatedTimestamp);
+    }
+
     public HealthMessage() {
+        timestamp = truncateSeconds(new Date().getTime() / 1000);
         cpu = new DoubleWritable(0.0);
         ramTotal = new DoubleWritable(0.0);
         ramFree = new DoubleWritable(0.0);
@@ -80,7 +93,9 @@ public class HealthMessage implements Writable {
     @Override
     public String toString() {
         int n = count.get();
-        return  cpu.get() / n + "," +
+
+        return  timestamp.get() + ", " +
+                cpu.get() / n + "," +
                 ramTotal.get() / n + "," +
                 ramFree.get() / n + "," +
                 diskTotal.get() / n + "," +
@@ -115,6 +130,7 @@ public class HealthMessage implements Writable {
 
     public ThriftHealthMessage toThrift(String serviceName){
       ThriftHealthMessage thriftHealthMessage = new ThriftHealthMessage();
+      thriftHealthMessage.setTimestamp(this.timestamp.get());
       thriftHealthMessage.setServiceName(serviceName);
       thriftHealthMessage.setCpu(this.cpu.get());
       thriftHealthMessage.setPeakCpu(this.peakCpu.get());

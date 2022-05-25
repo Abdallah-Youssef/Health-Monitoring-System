@@ -10,3 +10,5 @@ $HADOOP_HOME/sbin/start-yarn.sh
 
 echo -e "\n"
 
+hdfs dfs -put ./messages.txt /
+
