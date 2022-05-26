@@ -21,16 +21,15 @@ def query(start_date,end_date):
     for i in range(4):
         query_result.append(service("", 0,0,0,0,0,0))
     for instance in services:
-        name=instance[1]
-        match name:
-            case "service-1":
-                query_result[0]=add_service_data(query_result[0],instance)
-            case "service-2":
-                query_result[1] = add_service_data(query_result[1], instance)
-            case "service-3":
-                query_result[2] = add_service_data(query_result[2], instance)
-            case "service-4":
-                query_result[3] = add_service_data(query_result[3], instance)
+        name = instance[1]
+        if name == 1:
+            query_result[0]=add_service_data(query_result[0],instance)
+        elif name==2:
+            query_result[1] = add_service_data(query_result[1], instance)
+        elif name==3:
+            query_result[2] = add_service_data(query_result[2], instance)
+        elif name==4:
+            query_result[3] = add_service_data(query_result[3], instance)
     query_filtered=[]
     for instance in query_result:
         if not instance.service_name == "":
