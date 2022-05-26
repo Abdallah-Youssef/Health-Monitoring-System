@@ -40,7 +40,7 @@ RUN mkdir -p ~/hdfs/namenode && \
     mkdir $HADOOP_HOME/logs 
 
 COPY config/* /tmp/
-COPY ./messages.txt /root/
+COPY ./messages.csv /root/
 
 RUN mkdir ~/.ssh && \
     mv /tmp/ssh_config ~/.ssh/config && \
@@ -62,7 +62,9 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
-    chmod 600 ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa && \
+    chmod 600 ~/.ssh/config
+
     
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format

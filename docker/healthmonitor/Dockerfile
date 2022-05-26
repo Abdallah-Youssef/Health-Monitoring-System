@@ -20,7 +20,7 @@ RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o server
 FROM maven:alpine as maven-build
 WORKDIR /mapreduce
 
-# Download and cache packages
+# Download packages (separate steps to allow caching the packages)
 COPY ./mapreduce/pom.xml ./
 RUN mvn install
 
@@ -31,8 +31,6 @@ RUN mvn package
 FROM abdallahyossf/hadoop
 COPY --from=go-build /healthserver/server /root
 COPY --from=maven-build /mapreduce/target/json-to-parquet-0.0.1-SNAPSHOT.jar /root/mapreducejob.jar
-
-
 
 
 

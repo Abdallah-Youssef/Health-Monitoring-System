@@ -1,8 +1,6 @@
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Writable;
-import org.json.JSONObject;
-import org.json.JSONException;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -21,13 +19,12 @@ public class HealthMessage implements Writable {
     public DoubleWritable peakDiskFree;
     public IntWritable count;
 
-    public HealthMessage(String message) throws JSONException {
-        JSONObject object = new JSONObject(message);
-        cpu = new DoubleWritable(object.getDouble("CPU"));
-        ramTotal = new DoubleWritable(object.getJSONObject("RAM").getDouble("Total"));
-        ramFree = new DoubleWritable(object.getJSONObject("RAM").getDouble("Free"));
-        diskTotal = new DoubleWritable(object.getJSONObject("Disk").getDouble("Total"));
-        diskFree = new DoubleWritable(object.getJSONObject("Disk").getDouble("Free"));
+    public HealthMessage(String[] tokens) {
+        cpu = new DoubleWritable(Double.parseDouble(tokens[2]));
+        ramTotal = new DoubleWritable(Double.parseDouble(tokens[3]));
+        ramFree = new DoubleWritable(Double.parseDouble(tokens[4]));
+        diskTotal = new DoubleWritable(Double.parseDouble(tokens[5]));
+        diskFree = new DoubleWritable(Double.parseDouble(tokens[6]));
         count = new IntWritable(1);
         peakCpu = new DoubleWritable(0);
         peakRamTotal = new DoubleWritable(0);
@@ -65,18 +62,6 @@ public class HealthMessage implements Writable {
         peakDiskFree.set(Math.max(peakDiskFree.get(), other.diskFree.get()));
     }
 
-
-    public static String getServiceName(String message){
-      try {
-        JSONObject object = new JSONObject(message);
-        return object.getString("serviceName");
-      }
-      catch (JSONException e) {
-        return "JSONException";
-      }
-    }
-
-
     @Override
     public String toString() {
         int n = count.get();
@@ -113,20 +98,21 @@ public class HealthMessage implements Writable {
         count.readFields(dataInput);
     }
 
-    public ThriftHealthMessage toThrift(String serviceName){
-      ThriftHealthMessage thriftHealthMessage = new ThriftHealthMessage();
-      thriftHealthMessage.setServiceName(serviceName);
-      thriftHealthMessage.setCpu(this.cpu.get());
-      thriftHealthMessage.setPeakCpu(this.peakCpu.get());
-      thriftHealthMessage.setRamTotal(this.ramTotal.get());
-      thriftHealthMessage.setPeakRamTotal(this.peakRamTotal.get());
-      thriftHealthMessage.setRamFree(this.ramFree.get());
-      thriftHealthMessage.setPeakRamFree(this.peakRamFree.get());
-      thriftHealthMessage.setDiskTotal(this.diskTotal.get());
-      thriftHealthMessage.setPeakDiskTotal(this.peakDiskTotal.get());
-      thriftHealthMessage.setDiskFree(this.diskFree.get());
-      thriftHealthMessage.setPeakDiskFree(this.peakDiskFree.get());
-      thriftHealthMessage.setCount(this.count.get());
-      return thriftHealthMessage;
+    public ThriftHealthMessage toThrift(int serviceName, long timestamp){
+        ThriftHealthMessage thriftHealthMessage = new ThriftHealthMessage();
+        thriftHealthMessage.setTimestamp(timestamp);
+        thriftHealthMessage.setServiceName(serviceName);
+        thriftHealthMessage.setCpu(this.cpu.get());
+        thriftHealthMessage.setPeakCpu(this.peakCpu.get());
+        thriftHealthMessage.setRamTotal(this.ramTotal.get());
+        thriftHealthMessage.setPeakRamTotal(this.peakRamTotal.get());
+        thriftHealthMessage.setRamFree(this.ramFree.get());
+        thriftHealthMessage.setPeakRamFree(this.peakRamFree.get());
+        thriftHealthMessage.setDiskTotal(this.diskTotal.get());
+        thriftHealthMessage.setPeakDiskTotal(this.peakDiskTotal.get());
+        thriftHealthMessage.setDiskFree(this.diskFree.get());
+        thriftHealthMessage.setPeakDiskFree(this.peakDiskFree.get());
+        thriftHealthMessage.setCount(this.count.get());
+        return thriftHealthMessage;
     }
 }
