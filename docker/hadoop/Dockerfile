@@ -40,13 +40,12 @@ RUN mkdir -p ~/hdfs/namenode && \
     mkdir $HADOOP_HOME/logs 
 
 COPY config/* /tmp/
-COPY ./messages.txt /root/
+COPY ./messages.csv /root/
 
 RUN mkdir ~/.ssh && \
-    mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/id_rsa ~/.ssh/id_rsa && \
     mv /tmp/id_rsa.pub ~/.ssh/id_rsa.pub && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keyshdf
     
  
 RUN mv /tmp/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
