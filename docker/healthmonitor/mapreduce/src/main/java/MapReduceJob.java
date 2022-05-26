@@ -36,10 +36,11 @@ public class MapReduceJob {
     }
 
     public static class Reduce extends Reducer<ServiceMinuteWritable, HealthMessage, ServiceMinuteWritable, HealthMessage> {
-        public void reduce(ServiceMinuteWritable serviceKey, Iterator<HealthMessage> messages, Context context) throws IOException, InterruptedException {
+        public void reduce(ServiceMinuteWritable serviceKey, Iterable<HealthMessage> messages, Context context) throws IOException, InterruptedException {
             HealthMessage sum = new HealthMessage();
-            while (messages.hasNext())
-                sum.add(messages.next());
+            Iterator<HealthMessage> iterator = messages.iterator();
+            while (iterator.hasNext())
+                sum.add(iterator.next());
             context.write(serviceKey, sum);
         }
     }

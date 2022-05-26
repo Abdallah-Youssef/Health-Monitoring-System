@@ -16,6 +16,9 @@ RUN apt-get install openjdk-8-jdk -y
 RUN apt-get install vim nano net-tools -y
 RUN apt-get install openssh-client openssh-server -y
 RUN apt-get install iputils-ping -y
+RUN apt-get install python3
+RUN apt-get --assume-yes install python3-pip
+RUN python3 -m pip install parquet-tools
 
 RUN tar -xvzf hadoop-3.0.0.tar.gz  && \
   mv hadoop-3.0.0 /usr/local/hadoop && \
@@ -35,11 +38,14 @@ ENV PATH=$PATH:/usr/local/hadoop/bin:/usr/local/hadoop/sbin
 # RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 #    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-RUN mkdir -p ~/hdfs/namenode && \ 
-    mkdir -p ~/hdfs/datanode && \
-    mkdir $HADOOP_HOME/logs 
+#RUN mkdir -p ~/hdfs/namenode && \ 
+#    mkdir -p ~/hdfs/datanode && \
+#    mkdir $HADOOP_HOME/logs 
 
 COPY config/* /tmp/
+COPY ./messages.txt /root/
+COPY ./mapredjob.jar /root/
+COPY ./test-mapred.sh /root/
 COPY ./messages.csv /root/
 
 RUN mkdir ~/.ssh && \
@@ -66,8 +72,10 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod 600 ~/.ssh/config
 
     
+
+    
 # format namenode
-RUN /usr/local/hadoop/bin/hdfs namenode -format
+#RUN /usr/local/hadoop/bin/hdfs namenode -format
 
 CMD [ "sh", "-c", "service ssh start; bash"]
 

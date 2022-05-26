@@ -65,16 +65,17 @@ public class HealthMessage implements Writable {
     @Override
     public String toString() {
         int n = count.get();
-        return  cpu.get() / n + "," +
-                ramTotal.get() / n + "," +
-                ramFree.get() / n + "," +
-                diskTotal.get() / n + "," +
-                diskFree.get() / n + "," +
+        return  cpu.get()+ "," +
+                ramTotal.get() + "," +
+                ramFree.get() + "," +
+                diskTotal.get() + "," +
+                diskFree.get() + "," +
                 peakCpu.get() + "," +
                 peakRamTotal.get() + "," +
                 peakRamFree.get() + "," +
                 peakDiskTotal.get() + "," +
-                peakDiskFree.get();
+                peakDiskFree.get() + "," +
+                count.get();
     }
 
 
@@ -86,6 +87,12 @@ public class HealthMessage implements Writable {
         diskFree.write(dataOutput);
         diskTotal.write(dataOutput);
         count.write(dataOutput);
+        peakCpu.write(dataOutput);
+        peakRamTotal.write(dataOutput);
+        peakRamFree.write(dataOutput);
+        peakDiskTotal.write(dataOutput);
+        peakDiskFree.write(dataOutput);
+
     }
 
     @Override
@@ -96,6 +103,12 @@ public class HealthMessage implements Writable {
         diskFree.readFields(dataInput);
         diskTotal.readFields(dataInput);
         count.readFields(dataInput);
+        peakCpu.readFields(dataInput);
+        peakRamTotal.readFields(dataInput);
+        peakRamFree.readFields(dataInput);
+        peakDiskTotal.readFields(dataInput);
+        peakDiskFree.readFields(dataInput);
+
     }
 
     public ThriftHealthMessage toThrift(int serviceName, long timestamp){
