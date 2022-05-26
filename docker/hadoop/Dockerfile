@@ -43,9 +43,10 @@ COPY config/* /tmp/
 COPY ./messages.csv /root/
 
 RUN mkdir ~/.ssh && \
+    mv /tmp/ssh_config ~/.ssh/config && \
     mv /tmp/id_rsa ~/.ssh/id_rsa && \
     mv /tmp/id_rsa.pub ~/.ssh/id_rsa.pub && \
-    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keyshdf
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
     
  
 RUN mv /tmp/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh && \
@@ -61,7 +62,9 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
-    chmod 600 ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa && \
+    chmod 600 ~/.ssh/config
+
     
 # format namenode
 RUN /usr/local/hadoop/bin/hdfs namenode -format
