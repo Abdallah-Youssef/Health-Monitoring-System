@@ -1,13 +1,33 @@
 version: "3.7"
 
 services:
-  mockservice:
-    image: abdallahyossf/mockservice
+  # mockservice:
+  #   image: abdallahyossf/mockservice
     # cmd: ["/mockservice", "1000"]  optional set frequency from here
     
+  djangoweb:
+    image: abdallahyossf/djangoweb
+    tty: true
+    hostname: djangoweb
+    command: sh -c "service ssh start; python3 ./manage.py runserver"
+    networks:
+      - main
+    ports:
+      - 8001:8001
+
   healthmonitor:
     image: abdallahyossf/healthmonitor
     hostname: healthmonitor
-
+    tty: true
+    volumes:
+      - type: bind
+        source: ./healthmonitor/data
+        target: /root/data
+    networks:
+      - main
+    
+networks:
+  main:
+    external: true
 
 

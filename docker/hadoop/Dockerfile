@@ -46,6 +46,7 @@ COPY config/* /tmp/
 COPY ./messages.txt /root/
 COPY ./mapredjob.jar /root/
 COPY ./test-mapred.sh /root/
+COPY ./messages.csv /root/
 
 RUN mkdir ~/.ssh && \
     mv /tmp/ssh_config ~/.ssh/config && \
@@ -67,7 +68,9 @@ RUN chmod +x ~/start-hadoop.sh && \
     chmod +x ~/run-wordcount.sh && \
     chmod +x $HADOOP_HOME/sbin/start-dfs.sh && \
     chmod +x $HADOOP_HOME/sbin/start-yarn.sh && \
-    chmod 600 ~/.ssh/id_rsa
+    chmod 600 ~/.ssh/id_rsa && \
+    chmod 600 ~/.ssh/config
+
     
 
     
