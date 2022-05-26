@@ -1,5 +1,5 @@
 struct ThriftHealthMessage{
-  1: required string serviceName;
+  1: required i32 serviceName;
   2: required i64 timestamp;
   3: required double cpu;
   4: required double peakCpu;

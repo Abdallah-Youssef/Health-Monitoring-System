@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.lib.chain.ChainReducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.parquet.hadoop.thrift.ParquetThriftOutputFormat;
-import org.apache.parquet.io.*;
+//import org.apache.parquet.io.*;
 
 
 public class MapReduceJob {
