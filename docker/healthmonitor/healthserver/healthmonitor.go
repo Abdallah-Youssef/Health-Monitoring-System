@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -8,33 +9,20 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/colinmarc/hdfs"
-	"github.com/robfig/cron"
 )
 
-var msg_batch [1024]HealthMessage
-var msg_counter int = 0
+const batch_buffer_size int = 10
+var batch_messages_length int = 0
+var batch_messages [batch_buffer_size]string
+
 
 func StartHealthMonitor(hdfsAddr string) {
 	udpServer := startUDPServer()
 	hdfsClient := connecToHDFS(hdfsAddr)
-	logFile := openTodaysLogFile(hdfsClient)
-
-	cron_job := cron.New()
-	cron_job.AddFunc("@midnight", func() {
-		// Flush any in-memory messages
-		flush(logFile)
-
-		// Close the previous file
-		if logFile != nil {
-			logFile.Close()
-		}
-
-		logFile = openTodaysLogFile(hdfsClient)
-	})
-	cron_job.Start()
+	batchFile := openHDFSFile("/messages.csv", hdfsClient)
+	speedFile := openHDFSFile("/new.csv", hdfsClient)
 
 	for {
 		//recieve msg in a byte array p
@@ -47,11 +35,11 @@ func StartHealthMonitor(hdfsAddr string) {
 
 		fmt.Println(num_recieved_bytes)
 
-		recieve_msg(p, logFile)
+		recieve_msg(p, batchFile, speedFile)
 	}
 }
 
-func recieve_msg(p []byte, logFile *hdfs.FileWriter) {
+func recieve_msg(p []byte, batchFile *hdfs.FileWriter, speedFile *hdfs.FileWriter) {
 	//convert byte array into json object
 	var recieved_msg HealthMessage
 	var error_unmarshal = json.Unmarshal(p, &recieved_msg)
@@ -62,14 +50,15 @@ func recieve_msg(p []byte, logFile *hdfs.FileWriter) {
 		return
 	}
 
+	print_msg_content(recieved_msg)
+
 	//add the msg to the batch
-	msg_batch[msg_counter] = recieved_msg
-	// recieveTimes[msg_counter] = time.Now().UnixNano()
-	msg_counter++
-	fmt.Print(msg_counter, "-", recieved_msg.ServiceName)
-	if msg_counter == 1024 {
-		//a batch is formed
-		flush(logFile)
+	batch_messages[batch_messages_length] = toString(recieved_msg)
+
+	batch_messages_length++
+
+	if batch_messages_length >= batch_buffer_size {
+		flush(batchFile, speedFile)
 	}
 }
 
@@ -101,16 +90,8 @@ func connecToHDFS(hdfsAddr string) *hdfs.Client {
 	return client
 }
 
-// returns "/dd_mm_yyyy.log" of current day
-func getDateString() string {
-	t := time.Now()
-	return fmt.Sprintf("/%v_%v_%v.log", t.Day(), int(t.Month()), t.Year())
-}
 
-func openTodaysLogFile(hdfsClient *hdfs.Client) *hdfs.FileWriter {
-	// Open new file for the day
-	fileName := getDateString()
-	fmt.Println(fileName)
+func openHDFSFile(fileName string, hdfsClient *hdfs.Client) *hdfs.FileWriter {
 	file, err := hdfsClient.Append(fileName)
 	if err != nil {
 		fmt.Printf("Failed to append to \"%v\": %v\n\n, trying to create\n", fileName, err)
@@ -139,28 +120,46 @@ func registerInterruptHandler(logFile *hdfs.FileWriter) {
 	}()
 }
 
-// flush whatever is in the msg_batch
+// flush whatever is in the batch
 // The commented code is from the time measurements for the report
-func flush(logFile *hdfs.FileWriter) {
+func flush(batchFile *hdfs.FileWriter, speedFile *hdfs.FileWriter) {
 	//getRecieveTimesStats()
 	//fmt.Printf("Time taken to recieve 1024 msgs: %v\n", time.Since(timeSinceLastFlush))
 	//timeSinceLastFlush = time.Now()
 
 	//writeTime := time.Now()
-	for i := 0; i < msg_counter; i++ {
-		b, err := json.Marshal(msg_batch[i])
-		if err != nil {
-			fmt.Print("Failed to encode msg_batch\n")
-		} else {
-			io.WriteString(logFile, string(b))
-		}
+	for i := 0; i < batch_messages_length; i++ {
+			io.WriteString(batchFile, batch_messages[i])
+			io.WriteString(speedFile, batch_messages[i])
 	}
-	logFile.Flush()
+	batchFile.Flush()
+	speedFile.Flush()
 
 	//fmt.Printf("Time taken to flush 1024: %v\n", time.Since(writeTime))
-	msg_counter = 0
+	batch_messages_length = 0
 }
 
+
+func toString(msg HealthMessage) string{
+		var b bytes.Buffer
+		b.WriteString(msg.ServiceName)
+		b.WriteString(",")
+		b.WriteString(fmt.Sprintf("%v", msg.TimeStamp))
+		b.WriteString(",")
+		b.WriteString(fmt.Sprintf("%v",(msg.CPU)))
+		b.WriteString(",")
+		b.WriteString(fmt.Sprintf("%v",(msg.RAM.Total)))
+		b.WriteString(",")
+		b.WriteString(fmt.Sprintf("%v",(msg.RAM.Free)))
+		b.WriteString(",")
+		b.WriteString(fmt.Sprintf("%v",(msg.Disk.Total)))
+		b.WriteString(",")
+		b.WriteString(fmt.Sprintf("%v",(msg.Disk.Free)))
+		b.WriteString("\n")
+
+		fmt.Print(b.String())
+		return b.String()
+}
 // var timeSinceLastFlush = time.Now()
 // var recieveTimes [1024]int64
 // func getRecieveTimesStats() {

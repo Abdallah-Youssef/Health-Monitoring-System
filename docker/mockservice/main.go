@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"time"
+	"math/rand"
 
 	"github.com/mackerelio/go-osstat/cpu" // for cpu usage
 	"github.com/pbnjay/memory"            // for ram usage
@@ -70,7 +71,7 @@ func getDiskUsage() Mem {
 func getHealthJSON() HealthMessage {
 	return HealthMessage{
 		ServiceName: serviceName,
-		TimeStamp:   time.Now().UnixNano(),
+		TimeStamp:   time.Now().Unix(),
 		CPU:         getCPUUsage(),
 		RAM:         getRamUsage(),
 		Disk:        getDiskUsage(),
@@ -95,13 +96,7 @@ func padString(str string) string {
 
 //  Args: freq in ms, health
 func main() {
-	serviceName, err := os.Hostname()
-	if err != nil {
-		fmt.Printf("Failed to get hostname")
-		return
-	} else {
-		fmt.Printf("Host name: %v\n", serviceName)
-	}
+	serviceName = fmt.Sprintf("%v", rand.Intn(1000))
 
 	// Parse frequency
 	if len(os.Args) >= 2 {

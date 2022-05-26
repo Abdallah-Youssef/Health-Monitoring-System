@@ -16,6 +16,9 @@
 ### hadoop cluster
     docker stack deploy -c docker-compose.hadoop.yml hadoop
 
+### backend cluster (Health monitor + django)
+    docker stack deploy -c docker-compose.backend.yml backend
+
 ### healthmonior
     docker service create --name healthmonitor --hostname healthmonitor --network main --mount type=bind,source="$(pwd)"/data,target=/root/data abdallahyossf/healthmonitor sleep 10d
 
