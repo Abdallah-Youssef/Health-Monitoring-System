@@ -8,7 +8,7 @@ import django_app.formater as formater
 
 def query_result_view(request,start_date,end_date):
     start_date, end_date = formater.format_dates(start_date, end_date)
-    result = query(start_date, end_date)
+    result = query(start_date.timestamp(), end_date.timestamp())
     # query duckdb then pass the query result as the first argument in format_result
     return HttpResponse(formater.format_result(result,start_date,end_date))
 
