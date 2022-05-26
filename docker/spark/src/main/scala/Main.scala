@@ -11,10 +11,6 @@ object Main {
     val spark = SparkSession.builder.master("local[*]").appName("Spark Job").getOrCreate
     import spark.implicits._
 
-    val testFile = spark.read.parquet("hdfs://localhost:9000/output/part-r-00000.parquet")
-    testFile.printSchema()
-    testFile.show(2, 3)
-
 
     val customSchema = StructType(Array(
       StructField("serviceName", IntegerType),

@@ -22,4 +22,4 @@ RUN pip3 install duckdb==0.3.4
 # Django app port  
 EXPOSE 8001
 # start server  
-CMD [ "sh", "-c", "service ssh start; python3 ./manage.py runserver"]
+CMD [ "sh", "-c", "service ssh start; python3 ./manage.py migrate; python3 ./manage.py runserver 0.0.0.0:8001"]
