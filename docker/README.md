@@ -24,5 +24,5 @@
 
 ### mockservice
     docker service create --name mockservice --network main abdallahyossf/mockservice sleep 10d
-
-
+### mockservice
+    docker service create --name djangoweb --network main abdallahyossf/djangoweb -p 8001:8001 
