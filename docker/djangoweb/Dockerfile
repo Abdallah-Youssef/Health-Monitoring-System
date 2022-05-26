@@ -1,7 +1,6 @@
-FROM python:3.10.0
-
-
-
+FROM abdallahyossf/hadoop:base
+#install 
+RUN apt install python3-pip -y
 ## Django web server
 WORKDIR /django_app
 
