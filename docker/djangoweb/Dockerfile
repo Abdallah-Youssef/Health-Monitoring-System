@@ -1,4 +1,7 @@
 FROM abdallahyossf/hadoop:base
+
+RUN DEBIAN_FRONTEND=noninteractive
+RUN apt update
 #install 
 RUN apt install python3-pip -y
 ## Django web server
@@ -19,4 +22,4 @@ RUN pip3 install duckdb==0.3.4
 # Django app port  
 EXPOSE 8001
 # start server  
-CMD ["python3", "./manage.py", "runserver"]
+CMD [ "sh", "-c", "service ssh start; python3 ./manage.py runserver"]

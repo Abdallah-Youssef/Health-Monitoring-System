@@ -31,8 +31,7 @@ RUN mvn package
 FROM abdallahyossf/hadoop
 COPY --from=go-build /healthserver/server /root
 COPY --from=maven-build /mapreduce/target/json-to-parquet-0.0.1-SNAPSHOT.jar /root/mapreducejob.jar
-
-
+COPY ./scheduler.sh ./
 
 
 
@@ -47,9 +46,7 @@ COPY --from=maven-build /mapreduce/target/json-to-parquet-0.0.1-SNAPSHOT.jar /ro
 # 2: runs the map reduce job periodically
 # 3: runs the spark job periodically
 # 4: update the databases using the previous outputs
-
-
-CMD ["sleep", "1d"]
+CMD [ "sh", "-c", "service ssh start; sleep 10d"]
 
 
 
